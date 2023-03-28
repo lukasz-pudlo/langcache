@@ -1,29 +1,29 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
-from .models import Language, Word, Translation
+from .models import Language, Phrase, Translation
 
 
-class AddWordView(View):
+class AddPhraseView(View):
     def get(self, request):
-        # Render the template for adding words manually
-        return render(request, 'translations/add_word.html')
+        # Render the template for adding phrases manually
+        return render(request, 'translations/add_phrase.html')
 
     def post(self, request):
-        # Handle the form submission for adding a word manually
-        source_word = request.POST['source_word']
-        target_word = request.POST['target_word']
+        # Handle the form submission for adding a phrase manually
+        source_phrase = request.POST['source_phrase']
+        target_phrase = request.POST['target_phrase']
         source_language = Language.objects.get(
             id=request.POST['source_language'])
         target_language = Language.objects.get(
             id=request.POST['target_language'])
 
-        word, _ = Word.objects.get_or_create(
-            word=source_word, language=source_language)
+        phrase, _ = Phrase.objects.get_or_create(
+            text=source_phrase, language=source_language)
         translation, _ = Translation.objects.get_or_create(
-            word=word, translation=target_word, language=target_language)
+            phrase=phrase, translation=target_phrase, language=target_language)
 
-        return JsonResponse({'status': 'success', 'message': 'Word and translation added successfully'})
+        return JsonResponse({'status': 'success', 'message': 'Phrase and translation added successfully'})
 
 
 class UploadTextView(View):
