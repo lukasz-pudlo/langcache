@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Phrase</title>
+  </head>
+  <body>
+    <h1>Add a Phrase and its Translation</h1>
+    <form method="post" action="{% url 'add_phrase' %}">
+      {% csrf_token %}
+      <label for="source_phrase">Source Phrase:</label>
+      <input type="text" name="source_phrase" required />
+      <br />
+      <label for="target_phrase">Target Phrase:</label>
+      <input type="text" name="target_phrase" required />
+      <br />
+      <label for="source_language">Source Language:</label>
+      <select name="source_language">
+        <!-- Replace with dynamic options for languages -->
+        <option value="1">English</option>
+        <option value="2">French</option>
+      </select>
+      <br />
+      <label for="target_language">Target Language:</label>
+      <select name="target_language">
+        <!-- Replace with dynamic options for languages -->
+        <option value="1">English</option>
+        <option value="2">French</option>
+      </select>
+      <br />
+      <input type="submit" value="Add Phrase" />
+    </form>
+  </body>
+</html>

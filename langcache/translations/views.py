@@ -7,7 +7,7 @@ from .models import Language, Phrase, Translation
 class AddPhraseView(View):
     def get(self, request):
         # Render the template for adding phrases manually
-        return render(request, 'translations/add_phrase.html')
+        return render(request, 'add_phrase.html')
 
     def post(self, request):
         # Handle the form submission for adding a phrase manually
@@ -29,7 +29,7 @@ class AddPhraseView(View):
 class UploadTextView(View):
     def get(self, request):
         # Render the template for uploading text
-        return render(request, 'translations/upload_text.html')
+        return render(request, 'upload_text.html')
 
     def post(self, request):
         # Handle the text upload and processing
@@ -45,4 +45,4 @@ class DisplayTranslationsView(View):
         translations = Translation.objects.all()
 
         # Render the template for displaying translations and pass the translations as context
-        return render(request, 'translations/display_translations.html', {'translations': translations})
+        return render(request, 'display_translations.html', {'translations': translations})
