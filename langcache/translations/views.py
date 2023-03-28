@@ -2,12 +2,13 @@ from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
 from .models import Language, Phrase, Translation
+from .forms import AddPhraseForm, UploadTextForm
 
 
 class AddPhraseView(View):
     def get(self, request):
-        # Render the template for adding phrases manually
-        return render(request, 'add_phrase.html')
+        form = AddPhraseForm()
+        return render(request, 'add_phrase.html', {'form': form})
 
     def post(self, request):
         # Handle the form submission for adding a phrase manually
@@ -28,8 +29,8 @@ class AddPhraseView(View):
 
 class UploadTextView(View):
     def get(self, request):
-        # Render the template for uploading text
-        return render(request, 'upload_text.html')
+        form = UploadTextForm()
+        return render(request, 'upload_text.html', {'form': form})
 
     def post(self, request):
         # Handle the text upload and processing

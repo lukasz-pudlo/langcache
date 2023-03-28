@@ -1,31 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Translations</title>
-  </head>
-  <body>
-    <h1>Translations</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Source Phrase</th>
-          <th>Translation</th>
-          <th>Source Language</th>
-          <th>Target Language</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for translation in translations %}
-        <tr>
-          <td>{{ translation.phrase.text }}</td>
-          <td>{{ translation.translation }}</td>
-          <td>{{ translation.phrase.language }}</td>
-          <td>{{ translation.language }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
-</html>
+{% extends 'base.html' %} {% block title %}Translations - LangCache{% endblock%}
+{% block content %}
+<h2>Translations</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Phrase</th>
+      <th>Translation</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for translation in translations %}
+    <tr>
+      <td>{{ translation.phrase.text }}</td>
+      <td>{{ translation.text }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

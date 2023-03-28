@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload Text</title>
-  </head>
-  <body>
-    <h1>Upload Text</h1>
-    <form method="post" action="{% url 'upload_text' %}">
-      {% csrf_token %}
-      <label for="text">Paste your text here:</label>
-      <br />
-      <textarea name="text" rows="10" cols="50" required></textarea>
-      <br />
-      <input type="submit" value="Upload Text" />
-    </form>
-  </body>
-</html>
+{% extends 'base.html' %} {% block title %}Upload Text - LangCache{% endblock %}
+{% block content %}
+<h2>Upload Text</h2>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Upload</button>
+</form>
+{% endblock %}
