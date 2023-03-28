@@ -8,9 +8,5 @@ router.register(r'phrases', PhraseViewSet, basename='phrase')
 router.register(r'translations', TranslationViewSet, basename='translation')
 
 urlpatterns = [
-    path('add_phrase/', AddPhraseView.as_view(), name='add_phrase'),
-    path('upload_text/', UploadTextView.as_view(), name='upload_text'),
-    path('translations/', DisplayTranslationsView.as_view(),
-         name='display_translations'),
     path('api/', include(router.urls)),
 ]
