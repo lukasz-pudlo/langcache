@@ -10,3 +10,19 @@ langcache_env/
 node_modules/
 /static/
 project_notes.txt
+
+# React build artifacts
+/build/
+/public/build/
+
+# React testing and coverage
+/coverage/
+
+# IDE and editor specific files
+/.vscode/
+/.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*.sublime-*
