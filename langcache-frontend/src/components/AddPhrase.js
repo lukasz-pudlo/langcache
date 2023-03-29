@@ -15,14 +15,10 @@ const AddPhrase = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        source_phrase: {
-          text: sourcePhrase,
-          language: sourceLanguage,
-        },
-        target_phrase: {
-          text: targetPhrase,
-          language: targetLanguage,
-        },
+        source_phrase: sourcePhrase,
+        target_phrase: targetPhrase,
+        source_language: sourceLanguage,
+        target_language: targetLanguage,
       }),
     });
 
