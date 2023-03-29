@@ -16,6 +16,10 @@ class PhraseSerializer(serializers.ModelSerializer):
 
 
 class TranslationSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    source_phrase = PhraseSerializer()
+    target_phrase = PhraseSerializer()
+
     class Meta:
         model = Translation
         fields = ['id', 'user', 'source_phrase', 'target_phrase']
