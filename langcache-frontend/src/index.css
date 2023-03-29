@@ -152,6 +152,6 @@ nav a:hover {
   text-decoration: underline;
 }
 
-.active-link {
+nav ul li .active-link {
   font-weight: bold;
 }

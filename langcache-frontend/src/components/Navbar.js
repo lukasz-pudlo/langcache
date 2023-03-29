@@ -1,26 +1,28 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 
 const Navbar = () => {
+  const location = useLocation();
+
     return (
       <header>
         <nav>
           <ul>
             <li>
-              <NavLink to="/add_phrase" activeClassName="active-link">
-                Add Phrase
-              </NavLink>
+            <NavLink to="/add_phrase" className={location.pathname === '/add_phrase' ? 'active-link' : ''}>
+              Add Phrase
+            </NavLink>
             </li>
             <li>
-              <NavLink to="/upload_text" activeClassName="active-link">
-                Upload Text
-              </NavLink>
+            <NavLink to="/upload_text" className={location.pathname === '/upload_text' ? 'active-link' : ''}>
+              Upload Text
+            </NavLink>
             </li>
             <li>
-              <NavLink to="/translations" activeClassName="active-link">
-                Display Translations
-              </NavLink>
+            <NavLink to="/translations" className={location.pathname === '/translations' ? 'active-link' : ''}>
+              Display Translations
+            </NavLink>
             </li>
           </ul>
         </nav>

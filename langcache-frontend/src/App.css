@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+/* Navbar styles */
+nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+nav li {
+  display: inline;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav ul li .active-link {
+  font-weight: bold;
+}

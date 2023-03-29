@@ -4,7 +4,6 @@ import AddPhrase from './components/AddPhrase';
 import UploadText from './components/UploadText';
 import DisplayTranslations from './components/DisplayTranslations';
 import Navbar from './components/Navbar';
-import './index.css';
 
 
 function App() {
