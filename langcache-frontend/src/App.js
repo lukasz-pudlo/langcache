@@ -1,26 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AddPhrase from './components/AddPhrase';
 import UploadText from './components/UploadText';
 import DisplayTranslations from './components/DisplayTranslations';
+import Navbar from './components/Navbar';
+import './index.css';
+
 
 function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/add_phrase">Add Phrase</Link>
-            </li>
-            <li>
-              <Link to="/upload_text">Upload Text</Link>
-            </li>
-            <li>
-              <Link to="/translations">Display Translations</Link>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
 
         <Routes>
           <Route path="/add_phrase" element={<AddPhrase />} />

@@ -32,20 +32,22 @@ const DisplayTranslations = () => {
     <div>
       <h2>Translations</h2>
       {translations.length > 0 ? (
-        <div>
+        <div className="translation-display">
           <p>
             {translations[currentTranslationIndex].source_phrase.text} →{' '}
             {translations[currentTranslationIndex].target_phrase.text}
           </p>
-          <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
-            Previous
-          </button>
-          <button
-            onClick={handleNext}
-            disabled={currentTranslationIndex === translations.length - 1}
-          >
-            Next
-          </button>
+          <div className="translation-buttons">
+            <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
+              Previous
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={currentTranslationIndex === translations.length - 1}
+            >
+              Next
+            </button>
+          </div>
         </div>
       ) : (
         <p>No translations found.</p>

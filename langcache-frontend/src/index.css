@@ -97,3 +97,57 @@ table th {
 table tr:nth-child(even) {
   background-color: #e8eaf6;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  main {
+    max-width: 90%;
+  }
+
+  form input,
+  form button {
+    width: 100%;
+  }
+}
+
+/* DisplayTranslations */
+.translation-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5em;
+}
+
+.translation-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Navbar styles */
+nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+}
+
+nav li {
+  display: inline;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
