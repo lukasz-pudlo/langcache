@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const DisplayTranslations = () => {
   const [translations, setTranslations] = useState([]);
+  const [currentTranslationIndex, setCurrentTranslationIndex] = useState(0);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -14,18 +15,41 @@ const DisplayTranslations = () => {
 
     fetchTranslations();
   }, []);
-  
+
+  const handlePrev = () => {
+    if (currentTranslationIndex > 0) {
+      setCurrentTranslationIndex(currentTranslationIndex - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentTranslationIndex < translations.length - 1) {
+      setCurrentTranslationIndex(currentTranslationIndex + 1);
+    }
+  };
+
   return (
     <div>
       <h2>Translations</h2>
-      <ul>
-        
-        {translations.map((translation) => (
-          <li key={translation.id}>
-            {translation.source_phrase.text} → {translation.target_phrase.text}
-          </li>
-        ))}
-      </ul>
+      {translations.length > 0 ? (
+        <div>
+          <p>
+            {translations[currentTranslationIndex].source_phrase.text} →{' '}
+            {translations[currentTranslationIndex].target_phrase.text}
+          </p>
+          <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
+            Previous
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={currentTranslationIndex === translations.length - 1}
+          >
+            Next
+          </button>
+        </div>
+      ) : (
+        <p>No translations found.</p>
+      )}
     </div>
   );
 };
