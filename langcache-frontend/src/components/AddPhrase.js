@@ -32,7 +32,6 @@ const AddPhrase = () => {
 
   return (
     <div>
-      <h2>Add Phrase</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Source Phrase:

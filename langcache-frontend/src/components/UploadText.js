@@ -24,7 +24,6 @@ const UploadText = () => {
 
   return (
     <div>
-      <h2>Upload Text</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Text:

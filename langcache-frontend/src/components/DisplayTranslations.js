@@ -30,7 +30,6 @@ const DisplayTranslations = () => {
 
   return (
     <div>
-      <h2>Translations</h2>
       {translations.length > 0 ? (
         <div className="translation-display">
           <p>
