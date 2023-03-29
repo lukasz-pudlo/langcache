@@ -1,24 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
 
 const Navbar = () => {
-  return (
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/add_phrase">Add Phrase</Link>
-          </li>
-          <li>
-            <Link to="/upload_text">Upload Text</Link>
-          </li>
-          <li>
-            <Link to="/translations">Display Translations</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  );
-};
+    return (
+      <header>
+        <nav>
+          <ul>
+            <li>
+              <NavLink to="/add_phrase" activeClassName="active-link">
+                Add Phrase
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/upload_text" activeClassName="active-link">
+                Upload Text
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/translations" activeClassName="active-link">
+                Display Translations
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    );
+  };
+  
 
 export default Navbar;
