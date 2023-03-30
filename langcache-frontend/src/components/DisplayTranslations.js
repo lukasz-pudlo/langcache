@@ -48,26 +48,34 @@ const DisplayTranslations = () => {
 
   return (
     <div>
-      <button onClick={toggleAddPhrase}>{buttonText}</button>
-      {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
+      <div className="toggle-button-container">
+        <button onClick={toggleAddPhrase}>{buttonText}</button>
+      </div>
+      <div className="add-phrase-container">
+        {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
+      </div>
       {loading ? (
         <p>Loading translations...</p>
       ) : translations.length > 0 ? (
         <div>
-          <h2>
-            {translations[currentTranslationIndex].source_phrase.text} →{' '}
-            {translations[currentTranslationIndex].target_phrase.text}
-          </h2>
-          <div className="translation-buttons" ref={buttonContainerRef}>
-            <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
-              Previous
-            </button>
-            <button
-              onClick={handleNext}
-              disabled={currentTranslationIndex === translations.length - 1}
-            >
-              Next
-            </button>
+          <div className="translations-container">
+            <h2 className="centered-text">
+              {translations[currentTranslationIndex].source_phrase.text} →{' '}
+              {translations[currentTranslationIndex].target_phrase.text}
+            </h2>
+          </div>
+          <div className="buttons-container">
+            <div className="translation-buttons" ref={buttonContainerRef}>
+              <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
+                Previous
+              </button>
+              <button
+                onClick={handleNext}
+                disabled={currentTranslationIndex === translations.length - 1}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       ) : (

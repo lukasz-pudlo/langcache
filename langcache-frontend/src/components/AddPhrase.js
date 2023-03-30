@@ -46,9 +46,6 @@ const AddPhrase = ({ onPhraseAdded }) => {
   };
   
   
-  
-  
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -63,8 +60,9 @@ const AddPhrase = ({ onPhraseAdded }) => {
             className="form-control"
           />
         </div>
+        
           <label>
-          Source Language:
+            Source Language:
           <select
             value={sourceLanguage}
             onChange={(e) => setSourceLanguage(e.target.value)}
