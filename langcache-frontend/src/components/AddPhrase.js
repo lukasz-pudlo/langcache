@@ -50,36 +50,40 @@ const AddPhrase = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>
-          Source Phrase:
+        <div className="form-group">
+          <label>
+            Source Phrase:
+          </label>
           <input
             type="text"
             value={sourcePhrase}
             onChange={(e) => setSourcePhrase(e.target.value)}
           />
+        </div>
+          <label>
+          Source Language:
+          <select
+            value={sourceLanguage}
+            onChange={(e) => setSourceLanguage(e.target.value)}
+          >
+            <option value="">Select a language</option>
+            {languages.map((language) => (
+              <option key={language.id} value={language.id}>
+                {language.name}
+              </option>
+            ))}
+          </select>
         </label>
-        <label>
-        Source Language:
-        <select
-          value={sourceLanguage}
-          onChange={(e) => setSourceLanguage(e.target.value)}
-        >
-          <option value="">Select a language</option>
-          {languages.map((language) => (
-            <option key={language.id} value={language.id}>
-              {language.name}
-            </option>
-          ))}
-        </select>
-      </label>
-        <label>
-          Target Phrase:
+        <div className="form-group">
+          <label>
+            Target Phrase:
+          </label>
           <input
             type="text"
             value={targetPhrase}
             onChange={(e) => setTargetPhrase(e.target.value)}
           />
-        </label>
+        </div>
       <label>
         Target Language:
         <select
