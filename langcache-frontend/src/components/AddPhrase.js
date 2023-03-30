@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 
-const AddPhrase = () => {
+const AddPhrase = ({ onPhraseAdded }) => {
   const [sourcePhrase, setSourcePhrase] = useState('');
   const [targetPhrase, setTargetPhrase] = useState('');
   const [sourceLanguage, setSourceLanguage] = useState('');
   const [targetLanguage, setTargetLanguage] = useState('');
   const [message, setMessage] = useState('');
-
   const [languages, setLanguages] = useState([]);
 
   useEffect(() => {
@@ -21,7 +20,6 @@ const AddPhrase = () => {
 
     fetchLanguages();
   }, []);
-
 
 
   const handleSubmit = async (e) => {
@@ -39,23 +37,15 @@ const AddPhrase = () => {
     });
   
     if (response.ok) {
-      // Clear input fields
-      setSourcePhrase('');
-      setTargetPhrase('');
-      setSourceLanguage('');
-      setTargetLanguage('');
-  
-      // Display success message
-      setMessage('Translation added successfully.');
-  
-      // Hide success message after 3 seconds
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
+      const result = await response.json();
+      setMessage(result.message);
+      onPhraseAdded(); // Call the function without using 'props'
     } else {
       setMessage('Error: Could not add phrase and translation.');
     }
   };
+  
+  
   
   
 

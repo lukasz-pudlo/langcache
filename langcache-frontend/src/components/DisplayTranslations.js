@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AddPhrase from './AddPhrase';
 
+
 const DisplayTranslations = () => {
   const [translations, setTranslations] = useState([]);
   const [currentTranslationIndex, setCurrentTranslationIndex] = useState(0);
   const [showAddPhrase, setShowAddPhrase] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const buttonContainerRef = useRef(null);
+
+  const fetchTranslations = async () => {
+    setLoading(true);
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/translations/`);
+    if (response.ok) {
+      const data = await response.json();
+      setTranslations(data);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchTranslations = async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/translations/`);
-      if (response.ok) {
-        const data = await response.json();
-        setTranslations(data);
-      }
-    };
-
     fetchTranslations();
   }, []);
 
@@ -36,37 +41,23 @@ const DisplayTranslations = () => {
 
   const buttonText = showAddPhrase ? 'Hide new translation' : 'Add new translation';
 
-  // Ensure all buttons within a certain class are the same width
-  const buttonContainerRef = useRef(null);
-
-  useEffect(() => {
-    if (buttonContainerRef.current) {
-      const buttons = buttonContainerRef.current.querySelectorAll('button');
-      let maxWidth = 0;
-
-      // Find the largest button width
-      buttons.forEach((button) => {
-        const buttonWidth = button.offsetWidth;
-        if (buttonWidth > maxWidth) {
-          maxWidth = buttonWidth;
-        }
-      });
-
-      // Set all buttons to the largest width
-      buttons.forEach((button) => {
-        button.style.width = `${maxWidth}px`;
-      });
-    }
-  }, [translations]);
+  const handlePhraseAdded = () => {
+    setCurrentTranslationIndex(translations.length);
+    fetchTranslations();
+  };
 
   return (
     <div>
-      {translations.length > 0 ? (
-        <div className="translation-display">
-          <p>
+      <button onClick={toggleAddPhrase}>{buttonText}</button>
+      {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
+      {loading ? (
+        <p>Loading translations...</p>
+      ) : translations.length > 0 ? (
+        <div>
+          <h2>
             {translations[currentTranslationIndex].source_phrase.text} →{' '}
             {translations[currentTranslationIndex].target_phrase.text}
-          </p>
+          </h2>
           <div className="translation-buttons" ref={buttonContainerRef}>
             <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
               Previous
@@ -78,22 +69,15 @@ const DisplayTranslations = () => {
               Next
             </button>
           </div>
-
         </div>
       ) : (
-        <p>No translations found.</p>
+        <p>No translations available</p>
       )}
-      <br />
-      <div className="add-new-translation">
-      <button onClick={toggleAddPhrase}>{buttonText}</button></div>
-      {showAddPhrase && (
-        <>
-          <AddPhrase />
-        </>
-      )}
-
     </div>
   );
+  
+  
+  
 };
 
 export default DisplayTranslations;
