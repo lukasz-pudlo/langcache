@@ -60,6 +60,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
             type="text"
             value={sourcePhrase}
             onChange={(e) => setSourcePhrase(e.target.value)}
+            className="form-control"
           />
         </div>
           <label>
@@ -67,6 +68,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
           <select
             value={sourceLanguage}
             onChange={(e) => setSourceLanguage(e.target.value)}
+            className="form-control"
           >
             <option value="">Select a language</option>
             {languages.map((language) => (
@@ -84,6 +86,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
             type="text"
             value={targetPhrase}
             onChange={(e) => setTargetPhrase(e.target.value)}
+            className="form-control"
           />
         </div>
       <label>
@@ -91,6 +94,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
         <select
           value={targetLanguage}
           onChange={(e) => setTargetLanguage(e.target.value)}
+          className="form-control"
         >
           <option value="">Select a language</option>
           {languages.map((language) => (
