@@ -10,11 +10,6 @@ const Navbar = () => {
         <nav>
           <ul>
             <li>
-            <NavLink to="/add_phrase" className={location.pathname === '/add_phrase' ? 'active-link' : ''}>
-              Add Phrase
-            </NavLink>
-            </li>
-            <li>
             <NavLink to="/upload_text" className={location.pathname === '/upload_text' ? 'active-link' : ''}>
               Upload Text
             </NavLink>
