@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AddPhrase from './AddPhrase';
 
 const DisplayTranslations = () => {
   const [translations, setTranslations] = useState([]);
@@ -51,6 +52,8 @@ const DisplayTranslations = () => {
       ) : (
         <p>No translations found.</p>
       )}
+      <h3>Add a new translation</h3>
+      <AddPhrase />
     </div>
   );
 };
