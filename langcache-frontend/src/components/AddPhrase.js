@@ -49,7 +49,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
   
   
   return (
-    <div className='translation-wrapper'>
+    <div className='translation-wrapper display-translation-wrapper'>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>

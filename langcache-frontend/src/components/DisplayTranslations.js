@@ -57,7 +57,7 @@ const DisplayTranslations = () => {
       {loading ? (
         <p>Loading translations...</p>
       ) : translations.length > 0 ? (
-        <div>
+        <div className="display-translation-wrapper">
           <div className="translations-container">
             <h2 className="centered-text">
               {translations[currentTranslationIndex].source_phrase.text} →{' '}
