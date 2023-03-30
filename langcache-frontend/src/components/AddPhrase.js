@@ -58,16 +58,6 @@ const AddPhrase = () => {
             onChange={(e) => setSourcePhrase(e.target.value)}
           />
         </label>
-        <br />
-        <label>
-          Target Phrase:
-          <input
-            type="text"
-            value={targetPhrase}
-            onChange={(e) => setTargetPhrase(e.target.value)}
-          />
-        </label>
-        <br />
         <label>
         Source Language:
         <select
@@ -82,7 +72,14 @@ const AddPhrase = () => {
           ))}
         </select>
       </label>
-      <br />
+        <label>
+          Target Phrase:
+          <input
+            type="text"
+            value={targetPhrase}
+            onChange={(e) => setTargetPhrase(e.target.value)}
+          />
+        </label>
       <label>
         Target Language:
         <select
@@ -100,6 +97,7 @@ const AddPhrase = () => {
         <br />
         <button type="submit">Add</button>
       </form>
+      <br />
       {message && <p>{message}</p>}
     </div>
   );
