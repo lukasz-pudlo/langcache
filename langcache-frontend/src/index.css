@@ -164,3 +164,44 @@ nav a:hover {
 nav ul li .active-link {
   font-weight: bold;
 }
+
+/* Button styles */
+
+button {
+  background-color: #1a237e;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+button:disabled {
+  background-color: #9fa8da;
+  cursor: default;
+}
+
+
+.prev-btn,
+.next-btn {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button.prev-btn:disabled,
+button.next-btn:disabled {
+  background-color: #9fa8da;
+  cursor: default;
+}

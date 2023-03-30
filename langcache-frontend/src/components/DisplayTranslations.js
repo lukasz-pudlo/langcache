@@ -48,17 +48,20 @@ const DisplayTranslations = () => {
             <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
               Previous
             </button>
+
             <button
               onClick={handleNext}
               disabled={currentTranslationIndex === translations.length - 1}
             >
               Next
             </button>
+
           </div>
         </div>
       ) : (
         <p>No translations found.</p>
       )}
+      <br />
       
       <button onClick={toggleAddPhrase}>{buttonText}</button>
       {showAddPhrase && (
