@@ -205,3 +205,9 @@ button.next-btn:disabled {
   background-color: #9fa8da;
   cursor: default;
 }
+
+.add-new-translation {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}

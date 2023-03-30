@@ -84,11 +84,10 @@ const DisplayTranslations = () => {
         <p>No translations found.</p>
       )}
       <br />
-      
-      <button onClick={toggleAddPhrase}>{buttonText}</button>
+      <div className="add-new-translation">
+      <button onClick={toggleAddPhrase}>{buttonText}</button></div>
       {showAddPhrase && (
         <>
-          <h3>New translation</h3>
           <AddPhrase />
         </>
       )}
