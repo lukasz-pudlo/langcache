@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AddPhrase from './AddPhrase';
 
 const DisplayTranslations = () => {
@@ -36,6 +36,29 @@ const DisplayTranslations = () => {
 
   const buttonText = showAddPhrase ? 'Hide new translation' : 'Add new translation';
 
+  // Ensure all buttons within a certain class are the same width
+  const buttonContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (buttonContainerRef.current) {
+      const buttons = buttonContainerRef.current.querySelectorAll('button');
+      let maxWidth = 0;
+
+      // Find the largest button width
+      buttons.forEach((button) => {
+        const buttonWidth = button.offsetWidth;
+        if (buttonWidth > maxWidth) {
+          maxWidth = buttonWidth;
+        }
+      });
+
+      // Set all buttons to the largest width
+      buttons.forEach((button) => {
+        button.style.width = `${maxWidth}px`;
+      });
+    }
+  }, [translations]);
+
   return (
     <div>
       {translations.length > 0 ? (
@@ -44,19 +67,18 @@ const DisplayTranslations = () => {
             {translations[currentTranslationIndex].source_phrase.text} →{' '}
             {translations[currentTranslationIndex].target_phrase.text}
           </p>
-          <div className="translation-buttons">
+          <div className="translation-buttons" ref={buttonContainerRef}>
             <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
               Previous
             </button>
-
             <button
               onClick={handleNext}
               disabled={currentTranslationIndex === translations.length - 1}
             >
               Next
             </button>
-
           </div>
+
         </div>
       ) : (
         <p>No translations found.</p>
