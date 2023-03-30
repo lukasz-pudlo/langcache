@@ -9,9 +9,9 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <Router>
-      <div>
-        <Navbar />
-
+      
+      <Navbar />
+      <div className="content-container">
         <Routes>
           <Route path="/add_phrase" element={<AddPhrase />} />
           <Route path="/upload_text" element={<UploadText />} />

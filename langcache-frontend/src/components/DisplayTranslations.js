@@ -4,6 +4,7 @@ import AddPhrase from './AddPhrase';
 const DisplayTranslations = () => {
   const [translations, setTranslations] = useState([]);
   const [currentTranslationIndex, setCurrentTranslationIndex] = useState(0);
+  const [showAddPhrase, setShowAddPhrase] = useState(false);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -29,6 +30,12 @@ const DisplayTranslations = () => {
     }
   };
 
+  const toggleAddPhrase = () => {
+    setShowAddPhrase(!showAddPhrase);
+  };
+
+  const buttonText = showAddPhrase ? 'Hide new translation' : 'Add new translation';
+
   return (
     <div>
       {translations.length > 0 ? (
@@ -52,8 +59,15 @@ const DisplayTranslations = () => {
       ) : (
         <p>No translations found.</p>
       )}
-      <h3>Add a new translation</h3>
-      <AddPhrase />
+      
+      <button onClick={toggleAddPhrase}>{buttonText}</button>
+      {showAddPhrase && (
+        <>
+          <h3>New translation</h3>
+          <AddPhrase />
+        </>
+      )}
+
     </div>
   );
 };
