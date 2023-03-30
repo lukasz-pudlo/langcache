@@ -39,12 +39,24 @@ const AddPhrase = () => {
     });
   
     if (response.ok) {
-      const result = await response.json();
-      setMessage(result.message);
+      // Clear input fields
+      setSourcePhrase('');
+      setTargetPhrase('');
+      setSourceLanguage('');
+      setTargetLanguage('');
+  
+      // Display success message
+      setMessage('Translation added successfully.');
+  
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
     } else {
       setMessage('Error: Could not add phrase and translation.');
     }
   };
+  
   
 
   return (
