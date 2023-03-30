@@ -39,7 +39,9 @@ const AddPhrase = ({ onPhraseAdded }) => {
     if (response.ok) {
       const result = await response.json();
       setMessage(result.message);
-      onPhraseAdded(); // Call the function without using 'props'
+      onPhraseAdded();
+      setSourcePhrase('');
+      setTargetPhrase('');
     } else {
       setMessage('Error: Could not add phrase and translation.');
     }
@@ -47,7 +49,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
   
   
   return (
-    <div>
+    <div className='translation-wrapper'>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>
@@ -60,7 +62,6 @@ const AddPhrase = ({ onPhraseAdded }) => {
             className="form-control"
           />
         </div>
-        
           <label>
             Source Language:
           <select
