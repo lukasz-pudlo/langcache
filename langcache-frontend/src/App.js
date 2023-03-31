@@ -4,6 +4,7 @@ import AddPhrase from './components/AddPhrase';
 import UploadText from './components/UploadText';
 import DisplayTranslations from './components/DisplayTranslations';
 import Navbar from './components/Navbar';
+import AddLanguage from './components/AddLanguage';
 
 
 
@@ -24,17 +25,18 @@ function App() {
           element={<AddPhrase onNewTranslationAdded={handleNewTranslationAdded} />}
         />
           <Route path="/upload_text" element={<UploadText />} />
-            <Route
-              path="/translations"
-              element={
-                <DisplayTranslations
-                  translations={translations}
-                  setTranslations={setTranslations}
-                  currentTranslationIndex={currentTranslationIndex}
-                  setCurrentTranslationIndex={setCurrentTranslationIndex}
-                />
-              }
-            />
+          <Route
+            path="/translations"
+            element={
+              <DisplayTranslations
+                translations={translations}
+                setTranslations={setTranslations}
+                currentTranslationIndex={currentTranslationIndex}
+                setCurrentTranslationIndex={setCurrentTranslationIndex}
+              />
+            }
+          />
+          <Route path="/languages" element={<AddLanguage />} />
         </Routes>
       </div>
     </Router>

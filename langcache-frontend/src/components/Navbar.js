@@ -11,12 +11,17 @@ const Navbar = () => {
           <ul>
             <li>
             <NavLink to="/upload_text" className={location.pathname === '/upload_text' ? 'active-link' : ''}>
-              Upload Text
+              Text
             </NavLink>
             </li>
             <li>
             <NavLink to="/translations" className={location.pathname === '/translations' ? 'active-link' : ''}>
-              Display Translations
+              Translations
+            </NavLink>
+            </li>
+            <li>
+            <NavLink to="/languages" className={location.pathname === '/languages' ? 'active-link' : ''}>
+              Languages
             </NavLink>
             </li>
           </ul>
