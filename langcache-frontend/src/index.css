@@ -142,19 +142,6 @@ table tr:nth-child(even) {
   background-color: #e8eaf6;
 }
 
-/* Media queries for responsiveness */
-@media (max-width: 768px) {
-  main {
-    max-width: 90%;
-  }
-
-  form input,
-  form select,
-  form button {
-    width: 100%;
-  }
-}
-
 /* DisplayTranslations */
 .translation-display {
   display: flex;
@@ -282,5 +269,23 @@ button.next-btn:disabled {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 5%;
   margin-left: 5%;
-  margin-right: 5%
+  margin-right: 5%;
+  width: 500px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  main {
+    max-width: 90%;
+  }
+
+  form input,
+  form select,
+  form button {
+    width: 100%;
+  }
+
+  .translation-wrapper, .display-translation-wrapper {
+    width: 100%;
+  }
 }
