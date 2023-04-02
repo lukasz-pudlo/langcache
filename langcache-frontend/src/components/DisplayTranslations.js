@@ -96,6 +96,9 @@ const DisplayTranslations = () => {
     });
 
     if (response.ok) {
+      if (currentTranslationIndex === translations.length - 1) {
+        setCurrentTranslationIndex(currentTranslationIndex - 1);
+      }
       fetchTranslations();
     } else {
       console.error('Error: Could not remove translation.');
