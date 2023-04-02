@@ -44,3 +44,25 @@ class TranslationSerializer(serializers.ModelSerializer):
         )
 
         return translation
+
+    def update(self, instance, validated_data):
+        source_phrase_data = validated_data.pop('source_phrase', None)
+        target_phrase_data = validated_data.pop('target_phrase', None)
+
+        if source_phrase_data:
+            source_phrase = instance.source_phrase
+            source_phrase.text = source_phrase_data.get(
+                'text', source_phrase.text)
+            source_phrase.language = source_phrase_data.get(
+                'language', source_phrase.language)
+            source_phrase.save()
+
+        if target_phrase_data:
+            target_phrase = instance.target_phrase
+            target_phrase.text = target_phrase_data.get(
+                'text', target_phrase.text)
+            target_phrase.language = target_phrase_data.get(
+                'language', target_phrase.language)
+            target_phrase.save()
+
+        return super().update(instance, validated_data)
