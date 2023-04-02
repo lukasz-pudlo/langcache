@@ -46,6 +46,22 @@ const DisplayTranslations = () => {
     fetchTranslations();
   };
 
+  const handleEditTranslation = async (translation) => {
+    // To be added
+  };
+
+  const handleRemoveTranslation = async (translationId) => {
+    const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/translations/${translationId}/`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      fetchTranslations();
+    } else {
+      console.error('Error: Could not remove translation.');
+    }
+  };
+
   return (
     <div>
       <div className="toggle-button-container">
@@ -59,6 +75,14 @@ const DisplayTranslations = () => {
       ) : translations.length > 0 ? (
         <div className="display-translation-wrapper">
           <div className="translations-container">
+          <div>
+              <button onClick={() => handleEditTranslation(translations[currentTranslationIndex])}>
+                Edit
+              </button>
+              <button onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}>
+                Remove
+              </button>
+            </div>
             <h2 className="centered-text">
               {translations[currentTranslationIndex].source_phrase.text} →{' '}
               {translations[currentTranslationIndex].target_phrase.text}
