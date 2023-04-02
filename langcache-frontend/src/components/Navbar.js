@@ -19,11 +19,6 @@ const Navbar = () => {
               Translations
             </NavLink>
             </li>
-            <li>
-            <NavLink to="/languages" className={location.pathname === '/languages' ? 'active-link' : ''}>
-              Languages
-            </NavLink>
-            </li>
           </ul>
         </nav>
       </header>
