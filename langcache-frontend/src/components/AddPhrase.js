@@ -9,6 +9,40 @@ const AddPhrase = ({ onPhraseAdded }) => {
   const [message, setMessage] = useState('');
   const [languages, setLanguages] = useState([]);
 
+  const fetchMeaningFromDuden = async (word) => {
+    
+    try {
+      
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/duden/${word}/`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        return data.meaning;
+
+      } else {
+        throw new Error("Meaning not found");
+      }
+    } catch (error) {
+      console.error("Error fetching meaning from Duden:", error);
+      return "";
+    }
+  };
+
+  useEffect(() => {
+    const fetchMeaning = async () => {
+      if (sourceLanguage === 'German') {
+        console.log('fetching meaning from Duden...')
+        const meaning = await fetchMeaningFromDuden(sourcePhrase);
+        setTargetPhrase(meaning);
+      }
+    };
+  
+    fetchMeaning();
+  }, [sourcePhrase, sourceLanguage]);
+  
+  
+
   useEffect(() => {
     const fetchLanguages = async () => {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/languages/`);
