@@ -8,6 +8,8 @@ const DisplayTranslations = () => {
   const [showAddPhrase, setShowAddPhrase] = useState(false);
   const [loading, setLoading] = useState(true);
   const buttonContainerRef = useRef(null);
+  const [editTranslation, setEditTranslation] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const fetchTranslations = async () => {
     setLoading(true);
@@ -47,8 +49,46 @@ const DisplayTranslations = () => {
   };
 
   const handleEditTranslation = async (translation) => {
-    // To be added
+    setEditTranslation(translation);
+    setShowEditModal(true);
   };
+
+  const handleEditInputChange = (e, field) => {
+    const newTranslation = { ...editTranslation };
+    if (field === 'source_phrase') {
+      newTranslation.source_phrase.text = e.target.value;
+    } else if (field === 'target_phrase') {
+      newTranslation.target_phrase.text = e.target.value;
+    }
+    setEditTranslation(newTranslation);
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/api/translations/${editTranslation.id}/`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editTranslation),
+      }
+    );
+
+    if (response.ok) {
+      setShowEditModal(false);
+      fetchTranslations();
+    } else {
+      console.error('Error: Could not edit translation.');
+    }
+  };
+
+  const closeModal = () => {
+    setShowEditModal(false);
+  };
+  
 
   const handleRemoveTranslation = async (translationId) => {
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/translations/${translationId}/`, {
@@ -61,6 +101,7 @@ const DisplayTranslations = () => {
       console.error('Error: Could not remove translation.');
     }
   };
+
 
   return (
     <div>
@@ -75,7 +116,7 @@ const DisplayTranslations = () => {
       ) : translations.length > 0 ? (
         <div className="display-translation-wrapper">
           <div className="translations-container">
-          <div>
+            <div>
               <button onClick={() => handleEditTranslation(translations[currentTranslationIndex])}>
                 Edit
               </button>
@@ -105,8 +146,39 @@ const DisplayTranslations = () => {
       ) : (
         <p>No translations available</p>
       )}
+      {showEditModal && (
+        <div className="edit-modal">
+          <form onSubmit={handleEditSubmit}>
+            <div className="form-group">
+              <label>
+                Source Phrase:
+              </label>
+              <input
+                type="text"
+                value={editTranslation.source_phrase.text}
+                onChange={(e) => handleEditInputChange(e, 'source_phrase')}
+                className="form-control"
+              />
+            </div>
+            <div className="form-group">
+              <label>
+                Target Phrase:
+              </label>
+              <input
+                type="text"
+                value={editTranslation.target_phrase.text}
+                onChange={(e) => handleEditInputChange(e, 'target_phrase')}
+                className="form-control"
+              />
+            </div>
+            <button type="submit">Save</button>
+            <button onClick={closeModal}>Cancel</button>
+          </form>
+        </div>
+      )}
     </div>
   );
+  
   
   
   
