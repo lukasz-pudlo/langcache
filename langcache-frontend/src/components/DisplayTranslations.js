@@ -116,7 +116,7 @@ const DisplayTranslations = () => {
       ) : translations.length > 0 ? (
         <div className="display-translation-wrapper">
           <div className="translations-container">
-            <div>
+            <div div className="translation-buttons">
               <button onClick={() => handleEditTranslation(translations[currentTranslationIndex])}>
                 Edit
               </button>
@@ -178,10 +178,6 @@ const DisplayTranslations = () => {
       )}
     </div>
   );
-  
-  
-  
-  
 };
 
 export default DisplayTranslations;
