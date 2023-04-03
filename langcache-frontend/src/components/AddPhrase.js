@@ -8,38 +8,23 @@ const AddPhrase = ({ onPhraseAdded }) => {
   const [targetLanguage, setTargetLanguage] = useState('');
   const [message, setMessage] = useState('');
   const [languages, setLanguages] = useState([]);
-
-  const fetchMeaningFromDuden = async (word) => {
-    
-    try {
-      
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/duden/${word}/`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        return data.meaning;
-
-      } else {
-        throw new Error("Meaning not found");
-      }
-    } catch (error) {
-      console.error("Error fetching meaning from Duden:", error);
-      return "";
-    }
-  };
+  const [sourceLanguageName, setSourceLanguageName] = useState('');
+  const [temporaryMessage, setTemporaryMessage] = useState('');
 
   useEffect(() => {
     const fetchMeaning = async () => {
-      if (sourceLanguage === 'German') {
-        console.log('fetching meaning from Duden...')
+      console.log('Searching on Duden')
+      if (sourceLanguageName === 'German') {
         const meaning = await fetchMeaningFromDuden(sourcePhrase);
         setTargetPhrase(meaning);
       }
     };
   
-    fetchMeaning();
-  }, [sourcePhrase, sourceLanguage]);
+    if (sourcePhrase) {
+      fetchMeaning();
+    }
+  }, [sourcePhrase, sourceLanguageName]);
+  
   
   
 
@@ -54,6 +39,34 @@ const AddPhrase = ({ onPhraseAdded }) => {
 
     fetchLanguages();
   }, []);
+
+  useEffect(() => {
+    const language = languages.find((lang) => lang.id === sourceLanguage);
+    if (language) {
+      setSourceLanguageName(language.name);
+    }
+  }, [sourceLanguage, languages]);
+
+  const fetchMeaningFromDuden = async (word) => {
+    setTemporaryMessage('Searching on Duden...');
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/api/duden/${word}/`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setTemporaryMessage('');
+        return data.meaning;
+      } else {
+        throw new Error("Meaning not found");
+      }
+    } catch (error) {
+      console.error("Error fetching meaning from Duden:", error);
+      setTemporaryMessage('');
+      setTimeout(() => setMessage('Meaning not found on Duden'), 5000);
+      return "";
+    }
+  };
 
 
   const handleSubmit = async (e) => {
@@ -94,13 +107,17 @@ const AddPhrase = ({ onPhraseAdded }) => {
             value={sourcePhrase}
             onChange={(e) => setSourcePhrase(e.target.value)}
             className="form-control"
+            maxLength="510"
           />
         </div>
           <label>
             Source Language:
           <select
             value={sourceLanguage}
-            onChange={(e) => setSourceLanguage(e.target.value)}
+            onChange={(e) => {
+              setSourceLanguage(e.target.value);
+            }}
+            
             className="form-control"
           >
             <option value="">Select a language</option>
@@ -117,9 +134,10 @@ const AddPhrase = ({ onPhraseAdded }) => {
           </label>
           <input
             type="text"
-            value={targetPhrase}
+            value={temporaryMessage ? temporaryMessage : targetPhrase}
             onChange={(e) => setTargetPhrase(e.target.value)}
             className="form-control"
+            maxLength="510"
           />
         </div>
       <label>
