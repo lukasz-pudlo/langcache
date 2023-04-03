@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import AddPhrase from './AddPhrase';
+import { AddPhrase } from './AddPhrase';
+
+
 
 
 const DisplayTranslations = () => {

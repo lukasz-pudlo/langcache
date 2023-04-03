@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import AddPhrase from './components/AddPhrase';
+import { AddPhrase } from './components/AddPhrase';
 import UploadText from './components/UploadText';
 import DisplayTranslations from './components/DisplayTranslations';
 import Navbar from './components/Navbar';

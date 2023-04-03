@@ -8,23 +8,26 @@ const AddPhrase = ({ onPhraseAdded }) => {
   const [targetLanguage, setTargetLanguage] = useState('');
   const [message, setMessage] = useState('');
   const [languages, setLanguages] = useState([]);
-  const [sourceLanguageName, setSourceLanguageName] = useState('');
-  const [temporaryMessage, setTemporaryMessage] = useState('');
+  const [germanLanguageId, setGermanLanguageId] = useState(null);
 
   useEffect(() => {
     const fetchMeaning = async () => {
-      console.log('Searching on Duden')
-      if (sourceLanguageName === 'German') {
+      if (sourceLanguage === germanLanguageId && sourcePhrase) {
+        console.log('fetching meaning from Duden...');
+        setTargetPhrase("Searching on Duden...");
         const meaning = await fetchMeaningFromDuden(sourcePhrase);
-        setTargetPhrase(meaning);
+        if (meaning) {
+          setTargetPhrase(meaning.slice(0, 510));
+        } else {
+          setTargetPhrase('');
+          setMessage('Meaning not found on Duden');
+          setTimeout(() => setMessage(''), 5000);
+        }
       }
     };
   
-    if (sourcePhrase) {
-      fetchMeaning();
-    }
-  }, [sourcePhrase, sourceLanguageName]);
-  
+    fetchMeaning();
+  }, [sourcePhrase, sourceLanguage, germanLanguageId]);
   
   
 
@@ -34,39 +37,47 @@ const AddPhrase = ({ onPhraseAdded }) => {
       if (response.ok) {
         const data = await response.json();
         setLanguages(data);
+        // Find the ID for the German language
+        const germanLanguage = data.find((language) => language.name === 'German');
+        if (germanLanguage) {
+          setGermanLanguageId(germanLanguage.id);
+        }
       }
     };
-
+  
     fetchLanguages();
   }, []);
-
-  useEffect(() => {
-    const language = languages.find((lang) => lang.id === sourceLanguage);
-    if (language) {
-      setSourceLanguageName(language.name);
-    }
-  }, [sourceLanguage, languages]);
+  
 
   const fetchMeaningFromDuden = async (word) => {
-    setTemporaryMessage('Searching on Duden...');
+    setMessage('Searching on Duden...');
+  
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/duden/${word}/`
+        `${process.env.REACT_APP_API_BASE_URL}/api/duden?word=${word}`
+
       );
       if (response.ok) {
         const data = await response.json();
-        setTemporaryMessage('');
+        setMessage('');
         return data.meaning;
       } else {
-        throw new Error("Meaning not found");
+        setMessage('Meaning not found on Duden');
+        setTimeout(() => {
+          setMessage('');
+        }, 5000);
+        return '';
       }
     } catch (error) {
-      console.error("Error fetching meaning from Duden:", error);
-      setTemporaryMessage('');
-      setTimeout(() => setMessage('Meaning not found on Duden'), 5000);
-      return "";
+      console.error('Error fetching meaning from Duden:', error);
+      setMessage('Meaning not found on Duden');
+      setTimeout(() => {
+        setMessage('');
+      }, 5000);
+      return '';
     }
   };
+  
 
 
   const handleSubmit = async (e) => {
@@ -134,7 +145,6 @@ const AddPhrase = ({ onPhraseAdded }) => {
           </label>
           <input
             type="text"
-            value={temporaryMessage ? temporaryMessage : targetPhrase}
             onChange={(e) => setTargetPhrase(e.target.value)}
             className="form-control"
             maxLength="510"
@@ -164,4 +174,4 @@ const AddPhrase = ({ onPhraseAdded }) => {
   );
 };
 
-export default AddPhrase;
+export { AddPhrase };
