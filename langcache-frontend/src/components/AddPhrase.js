@@ -26,8 +26,11 @@ const AddPhrase = ({ onPhraseAdded }) => {
       }
     };
   
-    fetchMeaning();
+    if (sourcePhrase && sourceLanguage && germanLanguageId) {
+      fetchMeaning();
+    }
   }, [sourcePhrase, sourceLanguage, germanLanguageId]);
+  
   
   
 
@@ -110,7 +113,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
     <div className='translation-wrapper display-translation-wrapper'>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>
+          <label htmlFor="source-phrase">
             Source Phrase:
           </label>
           <input
@@ -118,18 +121,19 @@ const AddPhrase = ({ onPhraseAdded }) => {
             value={sourcePhrase}
             onChange={(e) => setSourcePhrase(e.target.value)}
             className="form-control"
+            id="source-phrase"
             maxLength="510"
           />
         </div>
-          <label>
+          <label htmlFor="source-language">
             Source Language:
           <select
             value={sourceLanguage}
             onChange={(e) => {
               setSourceLanguage(e.target.value);
             }}
-            
             className="form-control"
+            id="source-language"
           >
             <option value="">Select a language</option>
             {languages.map((language) => (
@@ -140,22 +144,24 @@ const AddPhrase = ({ onPhraseAdded }) => {
           </select>
         </label>
         <div className="form-group">
-          <label>
+          <label htmlFor="target-phrase">
             Target Phrase:
           </label>
           <input
             type="text"
             onChange={(e) => setTargetPhrase(e.target.value)}
             className="form-control"
+            id="target-phrase"
             maxLength="510"
           />
         </div>
-      <label>
+      <label htmlFor="target-language">
         Target Language:
         <select
           value={targetLanguage}
           onChange={(e) => setTargetLanguage(e.target.value)}
           className="form-control"
+          id="target-language"
         >
           <option value="">Select a language</option>
           {languages.map((language) => (
