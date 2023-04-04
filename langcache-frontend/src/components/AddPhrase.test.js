@@ -18,7 +18,7 @@ beforeEach(() => {
 test('fetches meaning from Duden when the source language is changed to German', async () => {
   render(<DisplayTranslations />);
 
-  await waitFor(() => fireEvent.click(screen.getByText('Add new translation')));
+  fireEvent.click(screen.getByText('Add new translation'));
 
   // Type a German word into the source phrase input field
   userEvent.type(screen.getByLabelText('Source Phrase:'), 'Freiheit');
