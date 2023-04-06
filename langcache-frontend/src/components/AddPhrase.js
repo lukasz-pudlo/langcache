@@ -149,6 +149,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
           </label>
           <input
             type="text"
+            value={targetPhrase}
             onChange={(e) => setTargetPhrase(e.target.value)}
             className="form-control"
             id="target-phrase"
