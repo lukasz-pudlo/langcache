@@ -62,7 +62,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
   
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/duden?word=${word}`
+        `${process.env.REACT_APP_API_BASE_URL}/api/duden/${word}`
 
       );
       if (response.ok) {
