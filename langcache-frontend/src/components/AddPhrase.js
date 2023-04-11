@@ -32,7 +32,17 @@ const AddPhrase = ({ onPhraseAdded }) => {
   }, [sourcePhrase, sourceLanguage, germanLanguageId]);
   
   
-  
+  const handleSourceLanguageChange = (e) => {
+    const selectedLanguageId = e.target.value;
+    setSourceLanguage(selectedLanguageId);
+    // Check if the selected language is German
+    const selectedLanguage = languages.find((language) => language.id.toString() === selectedLanguageId);
+    if (selectedLanguage && selectedLanguage.name === 'German') {
+      setGermanLanguageId(selectedLanguageId);
+    } else {
+      setGermanLanguageId(null);
+    }
+  };
 
   useEffect(() => {
     const fetchLanguages = async () => {
@@ -40,14 +50,9 @@ const AddPhrase = ({ onPhraseAdded }) => {
       if (response.ok) {
         const data = await response.json();
         setLanguages(data);
-        // Find the ID for the German language
-        const germanLanguage = data.find((language) => language.name === 'German');
-        if (germanLanguage) {
-          setGermanLanguageId(germanLanguage.id);
-        }
       }
     };
-  
+
     fetchLanguages();
   }, []);
   
@@ -129,9 +134,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
             Source Language:
           <select
             value={sourceLanguage}
-            onChange={(e) => {
-              setSourceLanguage(e.target.value);
-            }}
+            onChange={handleSourceLanguageChange}
             className="form-control"
             id="source-language"
           >
