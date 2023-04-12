@@ -13,11 +13,11 @@ const AddPhrase = ({ onPhraseAdded }) => {
   useEffect(() => {
     const fetchMeaning = async () => {
       if (sourceLanguage === germanLanguageId && sourcePhrase) {
-        console.log('fetching meaning from Duden...');
         setTargetPhrase("Searching on Duden...");
         const meaning = await fetchMeaningFromDuden(sourcePhrase);
         if (meaning) {
           setTargetPhrase(meaning.slice(0, 510));
+          setTargetLanguage(germanLanguageId)
         } else {
           setTargetPhrase('');
           setMessage('Meaning not found on Duden');
