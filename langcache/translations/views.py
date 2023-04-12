@@ -53,6 +53,7 @@ def chatGPT_meaning(request, word):
             },
         ],
     )
+    return JsonResponse(response)
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
