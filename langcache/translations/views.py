@@ -11,6 +11,11 @@ from django.views.decorators.csrf import csrf_exempt
 import requests
 from bs4 import BeautifulSoup
 
+from django.conf import settings
+
+import openai
+openai.api_key = settings.OPENAI_API_KEY
+
 
 @csrf_exempt
 def duden_meaning(request, word):
@@ -27,6 +32,27 @@ def duden_meaning(request, word):
             return JsonResponse({"error": "Meaning not found"}, status=404)
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=500)
+
+
+@csrf_exempt
+def chatGPT_meaning(request, word):
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {openai.api_key}'
+    }
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that translates German to English."
+            },
+            {
+                "role": "user",
+                "content": f'Translate the following German word to English: "{word}"'
+            },
+        ],
+    )
 
 
 class LanguageViewSet(viewsets.ModelViewSet):

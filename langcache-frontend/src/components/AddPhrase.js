@@ -19,9 +19,9 @@ const AddPhrase = ({ onPhraseAdded }) => {
           setTargetPhrase(meaning.slice(0, 510));
           setTargetLanguage(germanLanguageId)
         } else {
-          setTargetPhrase('');
-          setMessage('Meaning not found on Duden');
-          setTimeout(() => setMessage(''), 5000);
+            setTargetPhrase('');
+            setMessage('Meaning not found on Duden');
+            setTimeout(() => setMessage(''), 5000);
         }
       }
     };
@@ -85,6 +85,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
       return '';
     }
   };
+  
   
 
 
