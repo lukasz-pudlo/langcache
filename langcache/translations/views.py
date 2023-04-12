@@ -45,7 +45,7 @@ def chatGPT_meaning(request, word):
         messages=[
             {
                 "role": "system",
-                "content": "You are a helpful assistant that translates German to English."
+                "content": "You are a helpful assistant that translates German to English. In your response, provide only the translation."
             },
             {
                 "role": "user",
@@ -53,7 +53,8 @@ def chatGPT_meaning(request, word):
             },
         ],
     )
-    return JsonResponse(response)
+    meaning = response['choices'][0]['message']['content']
+    return JsonResponse({"meaning": meaning})
 
 
 class LanguageViewSet(viewsets.ModelViewSet):

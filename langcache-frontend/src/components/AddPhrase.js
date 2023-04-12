@@ -9,22 +9,30 @@ const AddPhrase = ({ onPhraseAdded }) => {
   const [message, setMessage] = useState('');
   const [languages, setLanguages] = useState([]);
   const [germanLanguageId, setGermanLanguageId] = useState(null);
+  const [typingTimeout, setTypingTimeout] = useState(null);
+
 
   useEffect(() => {
     const fetchMeaning = async () => {
       if (sourceLanguage === germanLanguageId && sourcePhrase) {
-        setTargetPhrase("Searching on Duden...");
-        const meaning = await fetchMeaningFromDuden(sourcePhrase);
-        if (meaning) {
-          setTargetPhrase(meaning.slice(0, 510));
-          setTargetLanguage(germanLanguageId)
-        } else {
-            setTargetPhrase('');
-            setMessage('Meaning not found on Duden');
-            setTimeout(() => setMessage(''), 5000);
-        }
+        clearTimeout(typingTimeout);
+        setTypingTimeout(
+          setTimeout(async () => {
+            setTargetPhrase("Searching...");
+            const meaning = await fetchTranslationFromChatGPT(sourcePhrase);
+            if (meaning) {
+              setTargetPhrase(meaning);
+              setTargetLanguage(germanLanguageId);
+            } else {
+              setTargetPhrase('');
+              setMessage('Meaning not found');
+              setTimeout(() => setMessage(''), 5000);
+            }
+          }, 3000) // 1000ms = 1 second debounce delay
+        );
       }
     };
+    
   
     if (sourcePhrase && sourceLanguage && germanLanguageId) {
       fetchMeaning();
@@ -63,7 +71,6 @@ const AddPhrase = ({ onPhraseAdded }) => {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/api/duden/${word}`
-
       );
       if (response.ok) {
         const data = await response.json();
@@ -85,9 +92,31 @@ const AddPhrase = ({ onPhraseAdded }) => {
       return '';
     }
   };
-  
-  
 
+  async function fetchTranslationFromChatGPT(word) {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/gpt/${word}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ word }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        return data.meaning.replace(/"/g, '');
+      } else {
+        console.error('Error fetching translation:', response.statusText);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching translation:', error);
+      return null;
+    }
+  }
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
