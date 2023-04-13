@@ -35,7 +35,7 @@ def duden_meaning(request, word):
 
 
 @csrf_exempt
-def chatGPT_meaning(request, word):
+def chatGPT_meaning(request, word, source_language, target_language):
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {openai.api_key}'
@@ -45,11 +45,11 @@ def chatGPT_meaning(request, word):
         messages=[
             {
                 "role": "system",
-                "content": "You are a helpful assistant that translates German to English. In your response, provide only the translation."
+                "content": "Translate the word or phrase. In your response, provide only the translation and nothing else. Just the translation."
             },
             {
                 "role": "user",
-                "content": f'Translate the following German word to English: "{word}"'
+                "content": f'Translate the word "{word}" from {source_language} into {target_language}'
             },
         ],
     )

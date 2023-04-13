@@ -12,5 +12,6 @@ router.register(r'translations', TranslationViewSet, basename='translation')
 urlpatterns = [
     path('api/', include(router.urls)),
     path('api/duden/<str:word>/', views.duden_meaning),
-    path('api/gpt/<str:word>/', views.chatGPT_meaning),
+    path('api/gpt/<str:word>/<str:source_language>/<str:target_language>/',
+         views.chatGPT_meaning),
 ]

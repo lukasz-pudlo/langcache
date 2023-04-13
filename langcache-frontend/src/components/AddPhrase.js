@@ -6,51 +6,55 @@ const AddPhrase = ({ onPhraseAdded }) => {
   const [targetPhrase, setTargetPhrase] = useState('');
   const [sourceLanguage, setSourceLanguage] = useState('');
   const [targetLanguage, setTargetLanguage] = useState('');
+  const [selectedSourceLanguage, setSelectedSourceLanguage] = useState('');
+  const [selectedTargetLanguage, setSelectedTargetLanguage] = useState('');
   const [message, setMessage] = useState('');
   const [languages, setLanguages] = useState([]);
-  const [germanLanguageId, setGermanLanguageId] = useState(null);
   const [typingTimeout, setTypingTimeout] = useState(null);
 
 
   useEffect(() => {
     const fetchMeaning = async () => {
-      if (sourceLanguage === germanLanguageId && sourcePhrase) {
+      if (sourcePhrase && selectedSourceLanguage && selectedTargetLanguage) {
         clearTimeout(typingTimeout);
         setTypingTimeout(
           setTimeout(async () => {
             setTargetPhrase("Searching...");
-            const meaning = await fetchTranslationFromChatGPT(sourcePhrase);
+            const meaning = await fetchTranslationFromChatGPT(sourcePhrase, selectedSourceLanguage, selectedTargetLanguage);
             if (meaning) {
               setTargetPhrase(meaning);
-              setTargetLanguage(germanLanguageId);
             } else {
               setTargetPhrase('');
               setMessage('Meaning not found');
               setTimeout(() => setMessage(''), 5000);
             }
-          }, 3000) // 1000ms = 1 second debounce delay
+          }, 3000)
         );
       }
     };
     
   
-    if (sourcePhrase && sourceLanguage && germanLanguageId) {
+    if (sourcePhrase && selectedSourceLanguage && selectedTargetLanguage) {
       fetchMeaning();
     }
-  }, [sourcePhrase, sourceLanguage, germanLanguageId]);
+  }, [sourcePhrase, selectedSourceLanguage, selectedTargetLanguage]);
   
   
   const handleSourceLanguageChange = (e) => {
     const selectedLanguageId = e.target.value;
     setSourceLanguage(selectedLanguageId);
-    // Check if the selected language is German
-    const selectedLanguage = languages.find((language) => language.id.toString() === selectedLanguageId);
-    if (selectedLanguage && selectedLanguage.name === 'German') {
-      setGermanLanguageId(selectedLanguageId);
-    } else {
-      setGermanLanguageId(null);
-    }
+    // Find the selected language name
+    const selectedSourceLanguage = languages.find((language) => language.id.toString() === selectedLanguageId);
+    setSelectedSourceLanguage(selectedSourceLanguage);
   };
+  
+  const handleTargetLanguageChange = (e) => {
+    const selectedLanguageId = e.target.value;
+    setTargetLanguage(selectedLanguageId);
+    // Find the selected language name
+    const selectedTargetLanguage = languages.find((language) => language.id.toString() === selectedLanguageId);
+    setSelectedTargetLanguage(selectedTargetLanguage);
+  }
 
   useEffect(() => {
     const fetchLanguages = async () => {
@@ -63,39 +67,11 @@ const AddPhrase = ({ onPhraseAdded }) => {
 
     fetchLanguages();
   }, []);
-  
 
-  const fetchMeaningFromDuden = async (word) => {
-    setMessage('Searching on Duden...');
-  
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/duden/${word}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setMessage('');
-        return data.meaning;
-      } else {
-        setMessage('Meaning not found on Duden');
-        setTimeout(() => {
-          setMessage('');
-        }, 5000);
-        return '';
-      }
-    } catch (error) {
-      console.error('Error fetching meaning from Duden:', error);
-      setMessage('Meaning not found on Duden');
-      setTimeout(() => {
-        setMessage('');
-      }, 5000);
-      return '';
-    }
-  };
 
-  async function fetchTranslationFromChatGPT(word) {
+  async function fetchTranslationFromChatGPT(word, selectedSourceLanguage, selectedTargetLanguage) {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/gpt/${word}/`, {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/gpt/${word}/${selectedSourceLanguage.name}/${selectedTargetLanguage.name}/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -193,7 +169,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
         Target Language:
         <select
           value={targetLanguage}
-          onChange={(e) => setTargetLanguage(e.target.value)}
+          onChange={handleTargetLanguageChange}
           className="form-control"
           id="target-language"
         >
