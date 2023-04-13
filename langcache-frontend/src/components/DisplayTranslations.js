@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AddPhrase } from './AddPhrase';
-
-
+import { Searchbar } from './Searchbar';
+import { SearchResults } from './SearchResults';
 
 
 const DisplayTranslations = () => {
@@ -12,6 +12,7 @@ const DisplayTranslations = () => {
   const buttonContainerRef = useRef(null);
   const [editTranslation, setEditTranslation] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [filteredTranslations, setFilteredTranslations] = useState([]);
 
   const fetchTranslations = async () => {
     setLoading(true);
@@ -105,11 +106,27 @@ const DisplayTranslations = () => {
     } else {
       console.error('Error: Could not remove translation.');
     }
+
+  };
+
+  const handleSearch = (searchTerm) => {
+    if (searchTerm) {
+      const filtered = translations.filter((translation) => {
+        return (
+          translation.source_phrase.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          translation.target_phrase.text.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      });
+      setFilteredTranslations(filtered);
+    } else {
+      setFilteredTranslations(translations);
+    }
   };
 
 
   return (
     <div>
+      <Searchbar onSearch={handleSearch} />
       <div className="toggle-button-container">
         <button onClick={toggleAddPhrase}>{buttonText}</button>
       </div>
@@ -118,38 +135,48 @@ const DisplayTranslations = () => {
       </div>
       {loading ? (
         <p>Loading translations...</p>
-      ) : translations.length > 0 ? (
-        <div className="display-translation-wrapper">
-          <div className="translations-container">
-            <div div className="translation-buttons">
-              <button onClick={() => handleEditTranslation(translations[currentTranslationIndex])}>
-                Edit
-              </button>
-              <button onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}>
-                Remove
-              </button>
-            </div>
-            <h2 className="centered-text">
-              {translations[currentTranslationIndex].source_phrase.text} →{' '}
-              {translations[currentTranslationIndex].target_phrase.text}
-            </h2>
-          </div>
-          <div className="buttons-container">
-            <div className="translation-buttons" ref={buttonContainerRef}>
-              <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
-                Previous
-              </button>
-              <button
-                onClick={handleNext}
-                disabled={currentTranslationIndex === translations.length - 1}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
       ) : (
-        <p>No translations available</p>
+        <>
+          {filteredTranslations.length > 0 ? (
+            // Display search results
+            <SearchResults filteredTranslations={filteredTranslations} />
+          ) : (
+            // Display all translations
+            translations.length > 0 ? (
+              <div className="display-translation-wrapper">
+                <div className="translations-container">
+                  <div div className="translation-buttons">
+                    <button onClick={() => handleEditTranslation(translations[currentTranslationIndex])}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}>
+                      Remove
+                    </button>
+                  </div>
+                  <h2 className="centered-text">
+                    {translations[currentTranslationIndex].source_phrase.text} →{' '}
+                    {translations[currentTranslationIndex].target_phrase.text}
+                  </h2>
+                </div>
+                <div className="buttons-container">
+                  <div className="translation-buttons" ref={buttonContainerRef}>
+                    <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
+                      Previous
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      disabled={currentTranslationIndex === translations.length - 1}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p>No translations available</p>
+            )
+          )}
+        </>
       )}
       {showEditModal && (
         <div className="edit-modal">
@@ -183,6 +210,7 @@ const DisplayTranslations = () => {
       )}
     </div>
   );
+  
 };
 
 export default DisplayTranslations;

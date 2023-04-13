@@ -18,6 +18,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      
       <div className="content-container">
         <Routes>
         <Route
@@ -29,6 +30,7 @@ function App() {
             path="/translations"
             element={
               <DisplayTranslations
+              
                 translations={translations}
                 setTranslations={setTranslations}
                 currentTranslationIndex={currentTranslationIndex}
