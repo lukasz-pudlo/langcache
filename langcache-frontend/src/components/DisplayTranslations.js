@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AddPhrase } from './AddPhrase';
 import { Searchbar } from './Searchbar';
 import { SearchResults } from './SearchResults';
@@ -27,18 +27,45 @@ const DisplayTranslations = () => {
   useEffect(() => {
     fetchTranslations();
   }, []);
+  
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (currentTranslationIndex > 0) {
       setCurrentTranslationIndex(currentTranslationIndex - 1);
     }
-  };
-
-  const handleNext = () => {
+  }, [currentTranslationIndex]);
+  
+  const handleNext = useCallback(() => {
     if (currentTranslationIndex < translations.length - 1) {
       setCurrentTranslationIndex(currentTranslationIndex + 1);
     }
+  }, [currentTranslationIndex, translations.length]);
+
+  const handleArrowKeyPress = (e) => {
+    if (e.key === 'ArrowLeft') {
+      handlePrev();
+    } else if (e.key === 'ArrowRight') {
+      handleNext();
+    }
   };
+  
+  useEffect(() => {
+    const handleArrowKeyPress = (e) => {
+      if (e.key === 'ArrowLeft') {
+        handlePrev();
+      } else if (e.key === 'ArrowRight') {
+        handleNext();
+      }
+    };
+  
+    document.addEventListener('keydown', handleArrowKeyPress);
+  
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      document.removeEventListener('keydown', handleArrowKeyPress);
+    };
+  }, [handlePrev, handleNext]);
+  
 
   const toggleAddPhrase = () => {
     setShowAddPhrase(!showAddPhrase);
