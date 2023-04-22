@@ -5,6 +5,7 @@ import UploadText from './components/UploadText';
 import DisplayTranslations from './components/DisplayTranslations';
 import Navbar from './components/Navbar';
 import AddLanguage from './components/AddLanguage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 

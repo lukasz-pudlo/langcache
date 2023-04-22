@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AddPhrase } from './AddPhrase';
 import { Searchbar } from './Searchbar';
 import { SearchResults } from './SearchResults';
+import Button from 'react-bootstrap/Button';
 
 
 const DisplayTranslations = () => {
@@ -152,10 +153,12 @@ const DisplayTranslations = () => {
 
 
   return (
+    
     <div>
       <Searchbar onSearch={handleSearch} />
       <div className="toggle-button-container">
         <button onClick={toggleAddPhrase}>{buttonText}</button>
+
       </div>
       <div className="add-phrase-container">
         {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
@@ -179,6 +182,7 @@ const DisplayTranslations = () => {
                     <button onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}>
                       Remove
                     </button>
+                
                   </div>
                   <h2 className="centered-text">
                     {translations[currentTranslationIndex].source_phrase.text} →{' '}
@@ -230,7 +234,8 @@ const DisplayTranslations = () => {
                 className="form-control"
               />
             </div>
-            <button type="submit">Save</button>
+            
+            <Button type="submit">Save</Button>
             <button onClick={closeModal}>Cancel</button>
           </form>
         </div>
