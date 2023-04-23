@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AddPhrase } from './AddPhrase';
 import { Searchbar } from './Searchbar';
 import { SearchResults } from './SearchResults';
-import Button from 'react-bootstrap/Button';
 
 
 const DisplayTranslations = () => {
@@ -153,7 +152,6 @@ const DisplayTranslations = () => {
 
 
   return (
-    
     <div>
       <Searchbar onSearch={handleSearch} />
       <div className="toggle-button-container">
@@ -234,8 +232,7 @@ const DisplayTranslations = () => {
                 className="form-control"
               />
             </div>
-            
-            <Button type="submit">Save</Button>
+            <button type="submit" className='btn btn-lg btn-primary'>Save</button>
             <button onClick={closeModal}>Cancel</button>
           </form>
         </div>
