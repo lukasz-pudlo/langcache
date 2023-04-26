@@ -156,7 +156,6 @@ const DisplayTranslations = () => {
       <Searchbar onSearch={handleSearch} />
       <div className="toggle-button-container">
         <button onClick={toggleAddPhrase}>{buttonText}</button>
-
       </div>
       <div className="add-phrase-container">
         {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}

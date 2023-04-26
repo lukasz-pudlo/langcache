@@ -28,7 +28,7 @@ const AddLanguage = () => {
   };
 
   return (
-    <div class="container-fluid">
+    <div className="language-wrapper">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>
