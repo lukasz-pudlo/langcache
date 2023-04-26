@@ -13,6 +13,8 @@ const DisplayTranslations = () => {
   const [editTranslation, setEditTranslation] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [filteredTranslations, setFilteredTranslations] = useState([]);
+  const [showTranslation, setShowTranslation] = useState(false);
+
 
   const fetchTranslations = async () => {
     setLoading(true);
@@ -32,12 +34,14 @@ const DisplayTranslations = () => {
   const handlePrev = useCallback(() => {
     if (currentTranslationIndex > 0) {
       setCurrentTranslationIndex(currentTranslationIndex - 1);
+      setShowTranslation(false);
     }
   }, [currentTranslationIndex]);
   
   const handleNext = useCallback(() => {
     if (currentTranslationIndex < translations.length - 1) {
       setCurrentTranslationIndex(currentTranslationIndex + 1);
+      setShowTranslation(false);
     }
   }, [currentTranslationIndex, translations.length]);
 
@@ -179,11 +183,24 @@ const DisplayTranslations = () => {
                     <button onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}>
                       Remove
                     </button>
-                
                   </div>
                   <h2 className="centered-text">
-                    {translations[currentTranslationIndex].source_phrase.text} →{' '}
-                    {translations[currentTranslationIndex].target_phrase.text}
+                    <div className="card-group">
+                      <div className="card-body">
+                        {translations[currentTranslationIndex].source_phrase.text}
+                      </div>
+                      {showTranslation ? (
+                        <div className='card-body'>
+                          {translations[currentTranslationIndex].target_phrase.text}
+                        </div>
+                      ) : (
+                        <div className="card-body">
+                          <button className="btn btn-outline-secondary" onClick={() => setShowTranslation(true)}>Show Translation</button>
+                        </div>
+                      )
+                    }
+                      
+                    </div>
                   </h2>
                 </div>
                 <div className="buttons-container">
@@ -200,6 +217,7 @@ const DisplayTranslations = () => {
                   </div>
                 </div>
               </div>
+              
             ) : (
               <p>No translations available</p>
             )
