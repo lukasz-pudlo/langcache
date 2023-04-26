@@ -299,8 +299,13 @@ button.next-btn:disabled {
   margin-bottom: 5%;
   margin-left: 5%;
   margin-right: 5%;
-  
 }
+
+.align-button {
+  display: flex;
+  align-items: center;
+}
+
 
 /* Media queries for responsiveness */
 @media (max-width: 768px) {

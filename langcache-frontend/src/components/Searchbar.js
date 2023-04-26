@@ -13,18 +13,31 @@ const Searchbar = ({ onSearch }) => {
   };
 
   return (
-    <div className="input-group mb-3">
+    
+      <div className="input-group mb-3">
         <input
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchChange}
-        class="form-control"
-        id="search-term"
-        maxLength="510"
-        placeholder="Search for translations..."
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="form-control"
+          id="search-term"
+          maxLength="510"
+          placeholder="Search for translations..."
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSubmit(e);
+            }
+          }}
         />
-        <button className="btn btn-outline-primary" type="button" onClick={handleSubmit}>Search</button>
-    </div>
+    
+        <button className="btn btn-outline-secondary" type="submit" onClick={handleSubmit}>
+          Search
+        </button>
+        
+      </div>
+    
+
+
   );
 };
 
