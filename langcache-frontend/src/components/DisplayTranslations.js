@@ -176,44 +176,76 @@ const DisplayTranslations = () => {
             translations.length > 0 ? (
               <div className="display-translation-wrapper">
                 <div className="translations-container">
-                  <div div className="translation-buttons">
-                    <button onClick={() => handleEditTranslation(translations[currentTranslationIndex])}>
-                      Edit
-                    </button>
-                    <button onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}>
-                      Remove
-                    </button>
-                  </div>
-                  <h2 className="centered-text">
-                    <div className="card-group">
-                      <div className="card-body">
-                        {translations[currentTranslationIndex].source_phrase.text}
+                  <div className="row">
+                    <div className="btn-group d-flex" role="group">
+                      <div class="translation-buttons mb-4">
+                        <div className="col">
+                          <button
+                            type="button"
+                            className="btn btn-primary w-100"
+                            onClick={() => handleEditTranslation(translations[currentTranslationIndex])}
+                          >
+                            Edit
+                          </button>
+                        </div>
+                        <div className="col">
+                          <button
+                            type="button"
+                            className="btn btn-primary w-100"
+                            onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
-                      {showTranslation ? (
-                        <div className='card-body'>
-                          {translations[currentTranslationIndex].target_phrase.text}
+                    </div>
+                  </div>
+                  <div className="row">
+                    <h2 className="centered-text">
+                      <div className="card-group">
+                      <div className="col">
+                          <div className="card-body">
+                            {translations[currentTranslationIndex].source_phrase.text}
+                          </div>
                         </div>
-                      ) : (
-                        <div className="card-body">
-                          <button className="btn btn-outline-secondary" onClick={() => setShowTranslation(true)}>Show Translation</button>
+                        {showTranslation ? (
+                          <div className="col">
+                            <div className='card-body'>
+                              {translations[currentTranslationIndex].target_phrase.text}
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="col">
+                            <div className="card-body">
+                              <button className="btn btn-outline-secondary" onClick={() => setShowTranslation(true)}>Show Translation</button>
+                            </div>
+                          </div>
+                        )
+                      }
+                      </div>
+                    </h2>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="btn-group d-flex" role="group">
+                    <div className="translation-buttons" ref={buttonContainerRef}>
+                      
+                        <div className="col">
+                          <button className="btn btn-primary w-100" onClick={handlePrev} disabled={currentTranslationIndex === 0}>
+                            Previous
+                          </button>
                         </div>
-                      )
-                    }
+                        <div className="col">
+                          <button
+                            className="btn btn-primary w-100"
+                            onClick={handleNext}
+                            disabled={currentTranslationIndex === translations.length - 1}
+                          >
+                            Next
+                          </button>
+                        </div>
                       
                     </div>
-                  </h2>
-                </div>
-                <div className="buttons-container">
-                  <div className="translation-buttons" ref={buttonContainerRef}>
-                    <button onClick={handlePrev} disabled={currentTranslationIndex === 0}>
-                      Previous
-                    </button>
-                    <button
-                      onClick={handleNext}
-                      disabled={currentTranslationIndex === translations.length - 1}
-                    >
-                      Next
-                    </button>
                   </div>
                 </div>
               </div>
