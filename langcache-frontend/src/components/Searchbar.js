@@ -30,7 +30,7 @@ const Searchbar = ({ onSearch }) => {
           }}
         />
     
-        <button className="btn btn-outline-secondary" type="submit" onClick={handleSubmit}>
+        <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
           Search
         </button>
         

@@ -159,7 +159,7 @@ const DisplayTranslations = () => {
     <div class="container-fluid">
       <Searchbar onSearch={handleSearch} />
       <div className="toggle-button-container">
-        <button onClick={toggleAddPhrase}>{buttonText}</button>
+        <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
       </div>
       <div className="add-phrase-container">
         {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
@@ -182,7 +182,7 @@ const DisplayTranslations = () => {
                         <div className="col">
                           <button
                             type="button"
-                            className="btn btn-primary w-100"
+                            className="btn btn-secondary w-100"
                             onClick={() => handleEditTranslation(translations[currentTranslationIndex])}
                           >
                             Edit
@@ -191,7 +191,7 @@ const DisplayTranslations = () => {
                         <div className="col">
                           <button
                             type="button"
-                            className="btn btn-primary w-100"
+                            className="btn btn-danger w-100"
                             onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}
                           >
                             Remove
