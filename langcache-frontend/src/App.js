@@ -15,6 +15,9 @@ function App() {
     setTranslations([...translations, newTranslation]);
     setCurrentTranslationIndex(translations.length);
   };
+
+  
+
   return (
     <Router>
       <Navbar />

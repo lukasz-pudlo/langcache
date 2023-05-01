@@ -1,30 +1,19 @@
 import React from 'react';
 
 const Navbar = () => {
-
   return (
-    <nav className="navbar navbar-expand-lg bg-light">
-      <div className="container-fluid">
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/upload_text">Text</a>
-              </li>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" id="nav-text" href="/upload_text">Text</a>
             </li>
-            <li className="nav-item">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/translations">Translations</a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" id="nav-translations" href="/translations">Translations</a>
             </li>
           </ul>
         </div>
-      </div>
     </nav>
   );
 };
-
 export default Navbar;

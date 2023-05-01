@@ -13,7 +13,6 @@ const Searchbar = ({ onSearch }) => {
   };
 
   return (
-    
       <div className="input-group mb-3">
         <input
           type="text"
@@ -29,15 +28,10 @@ const Searchbar = ({ onSearch }) => {
             }
           }}
         />
-    
         <button className="btn btn-primary" type="submit" onClick={handleSubmit}>
           Search
         </button>
-        
       </div>
-    
-
-
   );
 };
 
