@@ -1,8 +1,6 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const location = useLocation();
 
   return (
     <nav className="navbar navbar-expand-lg bg-light">
