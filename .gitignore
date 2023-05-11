@@ -12,6 +12,7 @@ node_modules/
 /static/
 project_notes.txt
 start_langcache_project.ps1
+start_langcache_project.sh
 
 # React build artifacts
 /build/
