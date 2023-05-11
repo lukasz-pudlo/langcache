@@ -5,6 +5,7 @@ __pycache__/
 *.sqlite3
 *.log
 langcache_env/
+langcache_venv/
 .env
 .DS_Store
 node_modules/
