@@ -29,7 +29,7 @@ const DisplayTranslations = () => {
   useEffect(() => {
     fetchTranslations();
   }, []);
-  
+
 
   const handlePrev = useCallback(() => {
     if (currentTranslationIndex > 0) {
@@ -37,7 +37,7 @@ const DisplayTranslations = () => {
       setShowTranslation(false);
     }
   }, [currentTranslationIndex]);
-  
+
   const handleNext = useCallback(() => {
     if (currentTranslationIndex < translations.length - 1) {
       setCurrentTranslationIndex(currentTranslationIndex + 1);
@@ -52,7 +52,7 @@ const DisplayTranslations = () => {
       handleNext();
     }
   };
-  
+
   useEffect(() => {
     const handleArrowKeyPress = (e) => {
       if (e.key === 'ArrowLeft') {
@@ -61,15 +61,15 @@ const DisplayTranslations = () => {
         handleNext();
       }
     };
-  
+
     document.addEventListener('keydown', handleArrowKeyPress);
-  
+
     // Clean up the event listener when the component is unmounted
     return () => {
       document.removeEventListener('keydown', handleArrowKeyPress);
     };
   }, [handlePrev, handleNext]);
-  
+
 
   const toggleAddPhrase = () => {
     setShowAddPhrase(!showAddPhrase);
@@ -122,7 +122,7 @@ const DisplayTranslations = () => {
   const closeModal = () => {
     setShowEditModal(false);
   };
-  
+
 
   const handleRemoveTranslation = async (translationId) => {
     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/translations/${translationId}/`, {
@@ -177,33 +177,33 @@ const DisplayTranslations = () => {
               <div className="display-translation-wrapper">
                 <div className="translations-container">
                   <div className="row">
-                    <div className="btn-group d-flex" role="group">
-                      <div class="translation-buttons mb-4">
-                        <div className="col">
-                          <button
-                            type="button"
-                            className="btn btn-secondary w-100"
-                            onClick={() => handleEditTranslation(translations[currentTranslationIndex])}
-                          >
-                            Edit
-                          </button>
-                        </div>
-                        <div className="col">
-                          <button
-                            type="button"
-                            className="btn btn-danger w-100"
-                            onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                      <button
+                        type="button"
+                        className="btn btn-secondary me-md-2"
+                        onClick={() => handleEditTranslation(translations[currentTranslationIndex])}
+                      >
+                        Edit
+                      </button>
+
+
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}
+                      >
+                        Remove
+                      </button>
+
                     </div>
+
                   </div>
                   <div className="row">
                     <h2 className="centered-text">
                       <div className="card-group">
-                      <div className="col">
+                        <div className="col">
                           <div className="card-body">
                             {translations[currentTranslationIndex].source_phrase.text}
                           </div>
@@ -221,7 +221,7 @@ const DisplayTranslations = () => {
                             </div>
                           </div>
                         )
-                      }
+                        }
                       </div>
                     </h2>
                   </div>
@@ -229,27 +229,27 @@ const DisplayTranslations = () => {
                 <div className="row">
                   <div className="btn-group d-flex" role="group">
                     <div className="translation-buttons" ref={buttonContainerRef}>
-                      
-                        <div className="col">
-                          <button className="btn btn-primary w-100" onClick={handlePrev} disabled={currentTranslationIndex === 0}>
-                            Previous
-                          </button>
-                        </div>
-                        <div className="col">
-                          <button
-                            className="btn btn-primary w-100"
-                            onClick={handleNext}
-                            disabled={currentTranslationIndex === translations.length - 1}
-                          >
-                            Next
-                          </button>
-                        </div>
-                      
+
+                      <div className="col">
+                        <button className="btn btn-primary w-100" onClick={handlePrev} disabled={currentTranslationIndex === 0}>
+                          Previous
+                        </button>
+                      </div>
+                      <div className="col">
+                        <button
+                          className="btn btn-primary w-100"
+                          onClick={handleNext}
+                          disabled={currentTranslationIndex === translations.length - 1}
+                        >
+                          Next
+                        </button>
+                      </div>
+
                     </div>
                   </div>
                 </div>
               </div>
-              
+
             ) : (
               <p>No translations available</p>
             )
@@ -288,7 +288,7 @@ const DisplayTranslations = () => {
       )}
     </div>
   );
-  
+
 };
 
 export default DisplayTranslations;
