@@ -32,14 +32,14 @@ const AddPhrase = ({ onPhraseAdded }) => {
         );
       }
     };
-    
-  
+
+
     if (sourcePhrase && selectedSourceLanguage && selectedTargetLanguage) {
       fetchMeaning();
     }
   }, [sourcePhrase, selectedSourceLanguage, selectedTargetLanguage]);
-  
-  
+
+
   const handleSourceLanguageChange = (e) => {
     const selectedLanguageId = e.target.value;
     setSourceLanguage(selectedLanguageId);
@@ -47,7 +47,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
     const selectedSourceLanguage = languages.find((language) => language.id.toString() === selectedLanguageId);
     setSelectedSourceLanguage(selectedSourceLanguage);
   };
-  
+
   const handleTargetLanguageChange = (e) => {
     const selectedLanguageId = e.target.value;
     setTargetLanguage(selectedLanguageId);
@@ -78,7 +78,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
         },
         body: JSON.stringify({ word }),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         return data.meaning.replace(/"/g, '');
@@ -91,8 +91,8 @@ const AddPhrase = ({ onPhraseAdded }) => {
       return null;
     }
   }
-  
-  
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -107,7 +107,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
         target_phrase: { text: targetPhrase, language: targetLanguage },
       }),
     });
-  
+
     if (response.ok) {
       const result = await response.json();
       setMessage(result.message);
@@ -118,69 +118,71 @@ const AddPhrase = ({ onPhraseAdded }) => {
       setMessage('Error: Could not add phrase and translation.');
     }
   };
-  
-  
+
+
   return (
     <div className='translation-wrapper display-translation-wrapper'>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="source-phrase">
-            Source Phrase:
-          </label>
-          <input
-            type="text"
-            value={sourcePhrase}
-            onChange={(e) => setSourcePhrase(e.target.value)}
-            className="form-control"
-            id="source-phrase"
-            maxLength="510"
-          />
+        <div className='row'>
+          <div className="col">
+            <input
+              type="text"
+              value={sourcePhrase}
+              placeholder="Source phrase"
+              onChange={(e) => setSourcePhrase(e.target.value)}
+              className="form-control"
+              id="source-phrase"
+              maxLength="510"
+              aria-label="Source phrase"
+            />
+          </div>
+          <div className="col">
+            <input
+              type="text"
+              placeholder="Target phrase"
+              value={targetPhrase}
+              onChange={(e) => setTargetPhrase(e.target.value)}
+              className="form-control"
+              id="target-phrase"
+              maxLength="510"
+              aria-label="Target phrase"
+            />
+          </div>
         </div>
-          <label htmlFor="source-language">
-            Source Language:
-          <select
-            value={sourceLanguage}
-            onChange={handleSourceLanguageChange}
-            className="form-control"
-            id="source-language"
-          >
-            <option value="">Select a language</option>
-            {languages.map((language) => (
-              <option key={language.id} value={language.id}>
-                {language.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <div className="form-group">
-          <label htmlFor="target-phrase">
-            Target Phrase:
-          </label>
-          <input
-            type="text"
-            value={targetPhrase}
-            onChange={(e) => setTargetPhrase(e.target.value)}
-            className="form-control"
-            id="target-phrase"
-            maxLength="510"
-          />
+        <div className='row align-items-center'>
+          <div className='col'>
+            <select
+              value={sourceLanguage}
+              onChange={handleSourceLanguageChange}
+              className="form-control"
+              id="source-language"
+            >
+              <option value="">Source language</option>
+              {languages.map((language) => (
+                <option key={language.id} value={language.id}>
+                  {language.name}
+                </option>
+              ))}
+            </select>
+
+          </div>
+          <div className='col'>
+            <select
+              value={targetLanguage}
+              onChange={handleTargetLanguageChange}
+              className="form-control"
+              id="target-language"
+            >
+              <option value="">Target language</option>
+              {languages.map((language) => (
+                <option key={language.id} value={language.id}>
+                  {language.name}
+                </option>
+              ))}
+            </select>
+
+          </div>
         </div>
-      <label htmlFor="target-language">
-        Target Language:
-        <select
-          value={targetLanguage}
-          onChange={handleTargetLanguageChange}
-          className="form-control"
-          id="target-language"
-        >
-          <option value="">Select a language</option>
-          {languages.map((language) => (
-            <option key={language.id} value={language.id}>
-              {language.name}
-            </option>
-          ))}
-        </select>
-      </label>
         <br />
         <button type="submit">Add</button>
       </form>
