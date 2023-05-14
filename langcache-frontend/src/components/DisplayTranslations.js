@@ -157,7 +157,6 @@ const DisplayTranslations = () => {
 
   return (
     <div class="container-fluid">
-      <Searchbar onSearch={handleSearch} />
       <div className="toggle-button-container">
         <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
       </div>
