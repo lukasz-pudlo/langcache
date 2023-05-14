@@ -200,7 +200,7 @@ const DisplayTranslations = () => {
                     </div>
 
                   </div>
-                  <div className="row">
+                  <div className="row mt-4">
                     <h2 className="centered-text">
                       <div className="card-group">
                         <div className="col">
