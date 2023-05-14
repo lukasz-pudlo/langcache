@@ -18,23 +18,6 @@ openai.api_key = settings.OPENAI_API_KEY
 
 
 @csrf_exempt
-def duden_meaning(request, word):
-    try:
-        url = f'https://www.duden.de/rechtschreibung/{word}'
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content.decode(), 'html.parser')
-        meanings = soup.find_all('div', {'class': 'enumeration__text'})
-        meaning = ''
-        if meanings:
-            meaning = meanings[0].text.strip()
-            return JsonResponse({"meaning": meaning})
-        else:
-            return JsonResponse({"error": "Meaning not found"}, status=404)
-    except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
-
-
-@csrf_exempt
 def chatGPT_meaning(request, word, source_language, target_language):
     headers = {
         'Content-Type': 'application/json',
