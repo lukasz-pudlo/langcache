@@ -123,8 +123,8 @@ const AddPhrase = ({ onPhraseAdded }) => {
   return (
     <div className='translation-wrapper display-translation-wrapper mt-3'>
       <form onSubmit={handleSubmit}>
-        <div className='row'>
-          <div className="col">
+        <div className='form-row'>
+          <div className="form-group col-md-6">
             <input
               type="text"
               value={sourcePhrase}
@@ -136,7 +136,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
               aria-label="Source phrase"
             />
           </div>
-          <div className="col">
+          <div className="form-group col-md-6">
             <input
               type="text"
               placeholder="Target phrase"
@@ -149,8 +149,8 @@ const AddPhrase = ({ onPhraseAdded }) => {
             />
           </div>
         </div>
-        <div className='row align-items-center'>
-          <div className='col mt-2'>
+        <div className='form-row align-items-center mt-2'>
+          <div className='form-group col md-6'>
             <select
               value={sourceLanguage}
               onChange={handleSourceLanguageChange}
@@ -166,7 +166,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
             </select>
 
           </div>
-          <div className='col mt-2'>
+          <div className='form-group col md-6'>
             <select
               value={targetLanguage}
               onChange={handleTargetLanguageChange}
