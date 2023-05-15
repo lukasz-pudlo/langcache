@@ -8,7 +8,6 @@ const DisplayTranslations = () => {
   const [currentTranslationIndex, setCurrentTranslationIndex] = useState(0);
   const [showAddPhrase, setShowAddPhrase] = useState(false);
   const [loading, setLoading] = useState(true);
-  const buttonContainerRef = useRef(null);
   const [editTranslation, setEditTranslation] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [filteredTranslations, setFilteredTranslations] = useState([]);
