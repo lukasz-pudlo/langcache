@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { AddPhrase } from './AddPhrase';
-import { Searchbar } from './Searchbar';
 import { SearchResults } from './SearchResults';
 
 
