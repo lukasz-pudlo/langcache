@@ -150,7 +150,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
           </div>
         </div>
         <div className='row align-items-center'>
-          <div className='col'>
+          <div className='col mt-2'>
             <select
               value={sourceLanguage}
               onChange={handleSourceLanguageChange}
@@ -166,7 +166,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
             </select>
 
           </div>
-          <div className='col'>
+          <div className='col mt-2'>
             <select
               value={targetLanguage}
               onChange={handleTargetLanguageChange}
