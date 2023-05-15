@@ -73,7 +73,7 @@ const DisplayTranslations = () => {
     setShowAddPhrase(!showAddPhrase);
   };
 
-  const buttonText = showAddPhrase ? 'Hide new translation' : 'Add new translation';
+  const buttonText = showAddPhrase ? 'Cancel new translation' : 'Add new translation';
 
   const handlePhraseAdded = () => {
     setCurrentTranslationIndex(translations.length);
@@ -155,9 +155,6 @@ const DisplayTranslations = () => {
 
   return (
     <div class="container-fluid">
-      <div className="toggle-button-container">
-        <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
-      </div>
       <div className="add-phrase-container">
         {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
       </div>
@@ -239,10 +236,15 @@ const DisplayTranslations = () => {
                       Next
                     </button>
                   </div>
-
                   <div class="col-sm"></div>
+                  <div class="col-sm"></div>
+                  <div class="col-sm"></div>
+                  <div className="col-sm">
+                    <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
+                  </div>
 
                 </div>
+
               </div>
 
             ) : (
