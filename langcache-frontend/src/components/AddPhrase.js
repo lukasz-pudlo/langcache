@@ -121,7 +121,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
 
 
   return (
-    <div className='translation-wrapper display-translation-wrapper'>
+    <div className='translation-wrapper display-translation-wrapper mt-3'>
       <form onSubmit={handleSubmit}>
         <div className='row'>
           <div className="col">
@@ -180,11 +180,10 @@ const AddPhrase = ({ onPhraseAdded }) => {
                 </option>
               ))}
             </select>
-
           </div>
         </div>
         <br />
-        <button type="submit">Add</button>
+        <button class="btn btn-primary" type="submit">Add</button>
       </form>
       <br />
       {message && <p>{message}</p>}
