@@ -9,7 +9,7 @@ const DisplayTranslations = () => {
   const [showAddPhrase, setShowAddPhrase] = useState(false);
   const [loading, setLoading] = useState(true);
   const [editTranslation, setEditTranslation] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [filteredTranslations, setFilteredTranslations] = useState([]);
   const [showTranslation, setShowTranslation] = useState(false);
 
@@ -82,7 +82,7 @@ const DisplayTranslations = () => {
 
   const handleEditTranslation = async (translation) => {
     setEditTranslation(translation);
-    setShowEditModal(true);
+    setIsEditing(true);
   };
 
   const handleEditInputChange = (e, field) => {
@@ -110,15 +110,11 @@ const DisplayTranslations = () => {
     );
 
     if (response.ok) {
-      setShowEditModal(false);
+      setIsEditing(false);
       fetchTranslations();
     } else {
       console.error('Error: Could not edit translation.');
     }
-  };
-
-  const closeModal = () => {
-    setShowEditModal(false);
   };
 
 
@@ -192,97 +188,104 @@ const DisplayTranslations = () => {
                     </div>
                   </div>
                 </div>
+
                 <div className="row mt-3">
                   <div class="col-sm centered-text">
                     <div className="card-body">
-                      <h2>
-                        {translations[currentTranslationIndex].source_phrase.text}
-                      </h2>
+                      {isEditing ? (
+                        <form onSubmit={handleEditSubmit}>
+                          <div className="form-group">
+                            <label>
+                              Source Phrase:
+                            </label>
+                            <input
+                              type="text"
+                              value={editTranslation.source_phrase.text}
+                              onChange={(e) => handleEditInputChange(e, 'source_phrase')}
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="form-group">
+                            <label>
+                              Target Phrase:
+                            </label>
+                            <input
+                              type="text"
+                              value={editTranslation.target_phrase.text}
+                              onChange={(e) => handleEditInputChange(e, 'target_phrase')}
+                              className="form-control"
+                            />
+                          </div>
+                          <button type="submit" className='btn btn-lg btn-primary'>Save</button>
+                          <button onClick={() => setIsEditing(false)}>Cancel</button>
+                        </form>
+                      ) : (
+                        <>
+                          <h2>
+                            {translations[currentTranslationIndex].source_phrase.text}
+                          </h2>
+                          <div class="col-sm centered-text">
+                            {showTranslation ? (
+                              <div className='card-body'>
+                                <h2>
+                                  {translations[currentTranslationIndex].target_phrase.text}
+                                </h2>
+                              </div>
+                            ) : (
+                              <div className="card-body">
+                                <button className="btn btn-outline-secondary" onClick={() => setShowTranslation(true)}>Show translation</button>
+                              </div>
+                            )}
+                          </div>
+                          <div class="col-sm"></div>
+                        </>
+                      )}
                     </div>
                   </div>
-                  <div class="col-sm centered-text">
-                    {showTranslation ? (
-
-                      <div className='card-body'>
-                        <h2>
-                          {translations[currentTranslationIndex].target_phrase.text}
-                        </h2>
-                      </div>
-                    ) : (
-                      <div className="card-body">
-                        <button className="btn btn-outline-secondary" onClick={() => setShowTranslation(true)}>Show Translation</button>
-                      </div>
-                    )
-                    }
-                  </div>
-                  <div class="col-sm"></div>
                 </div>
 
-                <div className="row mt-3">
 
-                  <div class="col-sm"></div>
+                {!isEditing && (
+                  <div className="row mt-3">
 
-                  <div className="col-sm">
-                    <button className="btn btn-primary w-100" onClick={handlePrev} disabled={currentTranslationIndex === 0}>
-                      Previous
-                    </button>
+                    <div class="col-sm"></div>
+
+                    <div className="col-sm">
+                      <button className="btn btn-primary w-100" onClick={handlePrev} disabled={currentTranslationIndex === 0}>
+                        Previous
+                      </button>
+                    </div>
+                    <div className="col-sm">
+                      <button
+                        className="btn btn-primary w-100"
+                        onClick={handleNext}
+                        disabled={currentTranslationIndex === translations.length - 1}
+                      >
+                        Next
+                      </button>
+                    </div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm"></div>
+                    <div class="col-sm"></div>
+                    <div className="col-sm">
+                      <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
+                    </div>
+
                   </div>
-                  <div className="col-sm">
-                    <button
-                      className="btn btn-primary w-100"
-                      onClick={handleNext}
-                      disabled={currentTranslationIndex === translations.length - 1}
-                    >
-                      Next
-                    </button>
-                  </div>
-                  <div class="col-sm"></div>
-                  <div class="col-sm"></div>
-                  <div class="col-sm"></div>
-                  <div className="col-sm">
-                    <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
-                  </div>
+                )}
 
-                </div>
 
-              </div>
+              </div >
 
             ) : (
               <p>No translations available</p>
             )
           )}
+
         </>
-      )}
-      {showEditModal && (
-        <div className="edit-modal">
-          <form onSubmit={handleEditSubmit}>
-            <div className="form-group">
-              <label>
-                Source Phrase:
-              </label>
-              <input
-                type="text"
-                value={editTranslation.source_phrase.text}
-                onChange={(e) => handleEditInputChange(e, 'source_phrase')}
-                className="form-control"
-              />
-            </div>
-            <div className="form-group">
-              <label>
-                Target Phrase:
-              </label>
-              <input
-                type="text"
-                value={editTranslation.target_phrase.text}
-                onChange={(e) => handleEditInputChange(e, 'target_phrase')}
-                className="form-control"
-              />
-            </div>
-            <button type="submit" className='btn btn-lg btn-primary'>Save</button>
-            <button onClick={closeModal}>Cancel</button>
-          </form>
-        </div>
-      )}
+
+      )
+      }
     </div>
   );
 
