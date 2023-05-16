@@ -154,6 +154,7 @@ const DisplayTranslations = () => {
       <div className="add-phrase-container">
         {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
       </div>
+
       {loading ? (
         <p>Loading translations...</p>
       ) : (
@@ -171,20 +172,25 @@ const DisplayTranslations = () => {
                   <div class="col-sm-4">
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                      <button
-                        type="button"
-                        className="btn btn-secondary me-md-2"
-                        onClick={() => handleEditTranslation(translations[currentTranslationIndex])}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}
-                      >
-                        Remove
-                      </button>
+                      {!isEditing && (
+                        <>
+                          <button
+                            type="button"
+                            className="btn btn-secondary me-md-2"
+                            onClick={() => handleEditTranslation(translations[currentTranslationIndex])}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => handleRemoveTranslation(translations[currentTranslationIndex].id)}
+                          >
+                            Remove
+                          </button>
+                        </>
+                      )}
+
                     </div>
                   </div>
                 </div>
@@ -216,8 +222,8 @@ const DisplayTranslations = () => {
                               className="form-control"
                             />
                           </div>
-                          <button type="submit" className='btn btn-lg btn-primary'>Save</button>
-                          <button onClick={() => setIsEditing(false)}>Cancel</button>
+                          <button type="submit" className='btn btn-primary'>Save</button>
+                          <button className="btn btn-danger" onClick={() => setIsEditing(false)}>Cancel</button>
                         </form>
                       ) : (
                         <>
