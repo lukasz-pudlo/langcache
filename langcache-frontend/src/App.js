@@ -6,6 +6,8 @@ import DisplayTranslations from './components/DisplayTranslations';
 import Navbar from './components/Navbar';
 import AddLanguage from './components/AddLanguage';
 
+import { ShowAddPhraseProvider } from './ShowAddPhraseProvider';
+
 
 
 function App() {
@@ -16,34 +18,35 @@ function App() {
     setCurrentTranslationIndex(translations.length);
   };
 
-  
+
 
   return (
     <Router>
       <Navbar />
-      
-      <div className="content-container">
-        <Routes>
-        <Route
-          path="/add_phrase"
-          element={<AddPhrase onNewTranslationAdded={handleNewTranslationAdded} />}
-        />
-          <Route path="/upload_text" element={<UploadText />} />
-          <Route
-            path="/translations"
-            element={
-              <DisplayTranslations
-              
-                translations={translations}
-                setTranslations={setTranslations}
-                currentTranslationIndex={currentTranslationIndex}
-                setCurrentTranslationIndex={setCurrentTranslationIndex}
-              />
-            }
-          />
-          <Route path="/languages" element={<AddLanguage />} />
-        </Routes>
-      </div>
+      <ShowAddPhraseProvider>
+        <div className="content-container">
+          <Routes>
+            <Route
+              path="/add_phrase"
+              element={<AddPhrase onNewTranslationAdded={handleNewTranslationAdded} />}
+            />
+            <Route path="/upload_text" element={<UploadText />} />
+            <Route
+              path="/translations"
+              element={
+                <DisplayTranslations
+
+                  translations={translations}
+                  setTranslations={setTranslations}
+                  currentTranslationIndex={currentTranslationIndex}
+                  setCurrentTranslationIndex={setCurrentTranslationIndex}
+                />
+              }
+            />
+            <Route path="/languages" element={<AddLanguage />} />
+          </Routes>
+        </div>
+      </ShowAddPhraseProvider>
     </Router>
   );
 }
