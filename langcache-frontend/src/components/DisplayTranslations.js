@@ -1,17 +1,20 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { AddPhrase } from './AddPhrase';
 import { SearchResults } from './SearchResults';
+
+import { ShowAddPhraseContext } from '../ShowAddPhraseProvider';
 
 
 const DisplayTranslations = () => {
   const [translations, setTranslations] = useState([]);
   const [currentTranslationIndex, setCurrentTranslationIndex] = useState(0);
-  const [showAddPhrase, setShowAddPhrase] = useState(false);
   const [loading, setLoading] = useState(true);
   const [editTranslation, setEditTranslation] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [filteredTranslations, setFilteredTranslations] = useState([]);
   const [showTranslation, setShowTranslation] = useState(false);
+
+  const { showAddPhrase, setShowAddPhrase } = useContext(ShowAddPhraseContext);
 
 
   const fetchTranslations = async () => {
@@ -273,9 +276,13 @@ const DisplayTranslations = () => {
                     <div class="col-sm"></div>
                     <div class="col-sm"></div>
                     <div class="col-sm"></div>
-                    <div className="col-sm">
-                      <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
-                    </div>
+
+                    {!showAddPhrase && (
+                      <div className="col-sm">
+                        <button type="button" class="btn btn-primary" onClick={toggleAddPhrase}>{buttonText}</button>
+                      </div>
+                    )}
+
 
                   </div>
                 )}
