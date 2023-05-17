@@ -155,7 +155,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
           </div>
         </div>
         <div className='form-row align-items-center mt-2'>
-          <div className='form-group col md-6'>
+          <div className='form-group col-md-6 col-12'>
             <select
               value={sourceLanguage}
               onChange={handleSourceLanguageChange}
@@ -171,7 +171,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
             </select>
 
           </div>
-          <div className='form-group col md-6'>
+          <div className='form-group col-md-6 col-12'>
             <select
               value={targetLanguage}
               onChange={handleTargetLanguageChange}
