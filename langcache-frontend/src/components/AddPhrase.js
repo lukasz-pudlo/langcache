@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+import { ShowAddPhraseContext } from '../ShowAddPhraseProvider';
 
 
 const AddPhrase = ({ onPhraseAdded }) => {
@@ -11,6 +13,9 @@ const AddPhrase = ({ onPhraseAdded }) => {
   const [message, setMessage] = useState('');
   const [languages, setLanguages] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
+
+  const { showAddPhrase, setShowAddPhrase } = useContext(ShowAddPhraseContext);
+
 
 
   useEffect(() => {
@@ -184,6 +189,7 @@ const AddPhrase = ({ onPhraseAdded }) => {
         </div>
         <br />
         <button class="btn btn-primary" type="submit">Add</button>
+        <button class="btn btn-danger" onClick={() => setShowAddPhrase(false)}>Cancel</button>
       </form>
       <br />
       {message && <p>{message}</p>}
