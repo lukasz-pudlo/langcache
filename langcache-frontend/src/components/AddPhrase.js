@@ -128,70 +128,68 @@ const AddPhrase = ({ onPhraseAdded }) => {
   return (
     <div className='translation-wrapper display-translation-wrapper mt-3'>
       <form onSubmit={handleSubmit}>
-        <div className='form-row'>
-          <div className="form-group col-md-6">
-            <input
-              type="text"
-              value={sourcePhrase}
-              placeholder="Source phrase"
-              onChange={(e) => setSourcePhrase(e.target.value)}
-              className="form-control"
-              id="source-phrase"
-              maxLength="510"
-              aria-label="Source phrase"
-            />
-          </div>
-          <div className="form-group col-md-6">
-            <input
-              type="text"
-              placeholder="Target phrase"
-              value={targetPhrase}
-              onChange={(e) => setTargetPhrase(e.target.value)}
-              className="form-control"
-              id="target-phrase"
-              maxLength="510"
-              aria-label="Target phrase"
-            />
-          </div>
-        </div>
-        <div className='form-row align-items-center mt-2'>
-          <div className='form-group col-md-6 col-12'>
-            <select
-              value={sourceLanguage}
-              onChange={handleSourceLanguageChange}
-              className="form-control"
-              id="source-language"
-            >
-              <option value="">Source language</option>
-              {languages.map((language) => (
-                <option key={language.id} value={language.id}>
-                  {language.name}
-                </option>
-              ))}
-            </select>
 
-          </div>
-          <div className='form-group col-md-6 col-12'>
-            <select
-              value={targetLanguage}
-              onChange={handleTargetLanguageChange}
-              className="form-control"
-              id="target-language"
-            >
-              <option value="">Target language</option>
-              {languages.map((language) => (
-                <option key={language.id} value={language.id}>
-                  {language.name}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="col-md-12">
+          <input
+            type="text"
+            value={sourcePhrase}
+            placeholder="Source phrase"
+            onChange={(e) => setSourcePhrase(e.target.value)}
+            className="form-control"
+            id="source-phrase"
+            maxLength="510"
+            aria-label="Source phrase"
+          />
         </div>
-        <br />
+        <div className="col-md-12 mt-2">
+          <select
+            value={sourceLanguage}
+            onChange={handleSourceLanguageChange}
+            className="form-control"
+            id="source-language"
+          >
+            <option value="">Source language</option>
+            {languages.map((language) => (
+              <option key={language.id} value={language.id}>
+                {language.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="col-md-12 mt-2">
+          <input
+            type="text"
+            placeholder="Target phrase"
+            value={targetPhrase}
+            onChange={(e) => setTargetPhrase(e.target.value)}
+            className="form-control"
+            id="target-phrase"
+            maxLength="510"
+            aria-label="Target phrase"
+          />
+        </div>
+
+        <div className="col-md-12 mt-2">
+          <select
+            value={targetLanguage}
+            onChange={handleTargetLanguageChange}
+            className="form-control"
+            id="target-language"
+          >
+            <option value="">Target language</option>
+            {languages.map((language) => (
+              <option key={language.id} value={language.id}>
+                {language.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+
         <button class="btn btn-primary" type="submit">Add</button>
         <button class="btn btn-danger" onClick={() => setShowAddPhrase(false)}>Cancel</button>
       </form>
-      <br />
+
       {message && <p>{message}</p>}
     </div>
   );
