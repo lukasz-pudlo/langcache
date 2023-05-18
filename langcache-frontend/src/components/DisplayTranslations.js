@@ -154,7 +154,7 @@ const DisplayTranslations = () => {
 
   return (
     <div class="container-fluid">
-      <div className="add-phrase-container">
+      <div>
         {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
       </div>
 
