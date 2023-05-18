@@ -203,9 +203,9 @@ const DisplayTranslations = () => {
                     <div className="card-body">
                       {isEditing ? (
                         <form onSubmit={handleEditSubmit}>
-                          <div className="form-group">
+                          <div className="col-sm-8">
                             <label>
-                              Source Phrase:
+                              Source phrase:
                             </label>
                             <input
                               type="text"
@@ -214,9 +214,9 @@ const DisplayTranslations = () => {
                               className="form-control"
                             />
                           </div>
-                          <div className="form-group">
+                          <div className="col-sm-8">
                             <label>
-                              Target Phrase:
+                              Target phrase:
                             </label>
                             <input
                               type="text"
@@ -225,8 +225,12 @@ const DisplayTranslations = () => {
                               className="form-control"
                             />
                           </div>
-                          <button type="submit" className='btn btn-primary'>Save</button>
-                          <button className="btn btn-danger" onClick={() => setIsEditing(false)}>Cancel</button>
+                          <div className="col-sm-8">
+                            <button type="submit" className='btn btn-primary'>Save</button>
+                          </div>
+                          <div className="col-sm-8">
+                            <button className="btn btn-danger" onClick={() => setIsEditing(false)}>Cancel</button>
+                          </div>
                         </form>
                       ) : (
                         <>
