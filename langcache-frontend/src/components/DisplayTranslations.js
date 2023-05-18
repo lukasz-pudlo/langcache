@@ -154,9 +154,9 @@ const DisplayTranslations = () => {
 
   return (
     <div class="container-fluid">
-      <div>
-        {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
-      </div>
+
+      {showAddPhrase && <AddPhrase onPhraseAdded={handlePhraseAdded} />}
+
 
       {loading ? (
         <p>Loading translations...</p>
@@ -169,13 +169,13 @@ const DisplayTranslations = () => {
             // Display all translations
             translations.length > 0 ? (
               <div className="display-translation-wrapper">
+                {!isEditing && (
+                  <div className="row">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-4">
 
-                <div className="row">
-                  <div class="col-sm-8"></div>
-                  <div class="col-sm-4">
+                      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                      {!isEditing && (
                         <>
                           <button
                             type="button"
@@ -192,13 +192,14 @@ const DisplayTranslations = () => {
                             Remove
                           </button>
                         </>
-                      )}
 
+
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
-                <div className="row mt-3">
+                <div className="row mt-1">
                   <div class="col-sm centered-text">
                     <div className="card-body">
                       {isEditing ? (
