@@ -28,11 +28,11 @@ def chatGPT_meaning(request, word, source_language, target_language):
         messages=[
             {
                 "role": "system",
-                "content": "Translate the word or phrase. In your response, provide only the translation and nothing else. Just the translation."
+                "content": "You are an experienced translator. When asked to translate a word from a given language into another language, you provide only the translated word or phrase. Nothing else."
             },
             {
                 "role": "user",
-                "content": f'Translate the word "{word}" from {source_language} into {target_language}'
+                "content": f'Translate the word "{word}" from {source_language} into {target_language}. You need to provide only the translated word or phrase. You should never add any additional comments.'
             },
         ],
     )
