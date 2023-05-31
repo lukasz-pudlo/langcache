@@ -23,20 +23,25 @@ def chatGPT_meaning(request, word, source_language, target_language):
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {openai.api_key}'
     }
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "system",
-                "content": "You are an experienced translator. When asked to translate a word from a given language into another language, you provide only the translated word or phrase. Nothing else."
-            },
-            {
-                "role": "user",
-                "content": f'Translate the word "{word}" from {source_language} into {target_language}. You need to provide only the translated word or phrase. You should never add any additional comments.'
-            },
-        ],
+
+    # Description of the task in natural language
+    task_description = 'Translate a word or phrase in one language into another language.'
+
+    # The text to translate
+    to_translate = f'"{word}" from {source_language} into {target_language}"'
+
+    prompt = task_description+"\n"+to_translate
+
+    response = openai.Completion.create(
+        model="text-curie-001",
+        prompt=prompt,
+        temperature=0.3,
+        max_tokens=2000,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0
     )
-    meaning = response['choices'][0]['message']['content']
+    meaning = response['choices'][0]['text']
     return JsonResponse({"meaning": meaning})
 
 
